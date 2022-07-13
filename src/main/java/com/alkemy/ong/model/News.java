@@ -6,6 +6,9 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -22,9 +25,15 @@ public class News {
     private Long id;
 
     @Column(nullable = false)
+    @NotNull(message = "Name can not be empty.")
+    @NotEmpty(message = "Name can not be empty.")
+    @NotBlank(message = "Name can not be blank.")
     private String name;
 
     @Column(columnDefinition = "TEXT")
+    @NotNull(message = "Content can not be empty.")
+    @NotEmpty(message = "Content can not be empty.")
+    @NotBlank(message = "Content can not be blank.")
     private String content;
 
     @Column
