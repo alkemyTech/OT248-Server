@@ -1,4 +1,4 @@
-package com.alkemy.ong.entities;
+package com.alkemy.ong.model;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
