@@ -1,5 +1,6 @@
 package com.alkemy.ong.model;
 
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -10,6 +11,9 @@ import java.util.Date;
 @Entity
 @SQLDelete(sql = "UPDATE news SET is_on = false WHERE new_id =?")
 @Where(clause = "is_on = true")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+@ToString
 public class News {
 
     @Id
@@ -17,7 +21,7 @@ public class News {
     @Column(name = "new_id")
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @Column(columnDefinition = "TEXT")
