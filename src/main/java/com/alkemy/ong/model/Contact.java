@@ -4,20 +4,20 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@SQLDelete(sql = "UPDATE contacts SET delete_at = true WHERE id_contact =?")
+@Where(clause = "delete_at = false")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Table(name = "contacts", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name"),
-        @UniqueConstraint(columnNames = "phone"),
-        @UniqueConstraint(columnNames = "email")
-})
+@Table(name = "contacts")
 public class Contact {
 
     @Id
@@ -35,6 +35,7 @@ public class Contact {
 
     @Column(nullable = false, name = "email")
     @NotNull(message = "Email can not be empty.")
+    @Email
     private String email;
 
     @Column(name = "message")
