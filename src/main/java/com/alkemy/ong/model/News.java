@@ -8,15 +8,16 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 @SQLDelete(sql = "UPDATE news SET deleted = true WHERE new_id =?")
 @Where(clause = "deleted = false")
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
 public class News {
 
@@ -49,7 +50,6 @@ public class News {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-
 
     @Column
     private boolean deleted = Boolean.FALSE;
