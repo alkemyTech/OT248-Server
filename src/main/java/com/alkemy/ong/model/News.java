@@ -36,8 +36,9 @@ public class News {
     @Column
     private String image;
 
-    @Column(name = "category_id")
-    private Long categoryId;
+    @OneToOne
+    @JoinColumn(name = "category_id")
+    private Categories categoryId;
 
     @Column(name = "create_date", nullable = false, updatable = false)
     @CreationTimestamp
