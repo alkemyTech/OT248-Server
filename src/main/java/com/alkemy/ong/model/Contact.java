@@ -23,7 +23,7 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_contact")
-    private Integer idContact;
+    private Long idContact;
 
     @Column(nullable = false, name = "name")
     @NotNull(message = "Name can not be empty.")
