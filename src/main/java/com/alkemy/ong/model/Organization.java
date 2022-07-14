@@ -20,9 +20,7 @@ import java.util.Date;
 @Where(clause = "soft_delete = false")
 @ToString
 @RequiredArgsConstructor
-@Table(name = "organizations", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "name")
-})
+@Table(name = "organizations")
 public class Organization {
 
     @Id
