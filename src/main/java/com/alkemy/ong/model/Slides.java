@@ -20,7 +20,7 @@ public class Slides {
     @Column
     private String text;
     @Column
-    private String order;
+    private Integer order;
     @ManyToOne
     @JoinColumn(name = "organization_id")
     private Organizations organizationId;
