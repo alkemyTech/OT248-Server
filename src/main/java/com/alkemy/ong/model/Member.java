@@ -44,6 +44,6 @@ public class Member {
     @UpdateTimestamp
     private Date updatedAt;
 
-    private boolean softDelete;
+    private boolean softDelete = false;
 
 }
