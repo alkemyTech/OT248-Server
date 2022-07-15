@@ -1,9 +1,6 @@
 package com.alkemy.ong.auth.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.validation.constraints.*;
@@ -12,13 +9,14 @@ import javax.validation.constraints.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserDTO {
 
-    @NotBlank(message = "Email can not be empty.")
-    @Email
+    @NotBlank(message = "Email format incorrect.")
+    @Email(message = "Email format incorrect.")
     private String email;
-    @NotEmpty(message = "Password can not be empty")
-    @Size(min = 4, max = 20,
+
+    @Size(min = 8, max = 20,
             message = "Password must be greater than 4 characters and less than 20")
     private String password;
 

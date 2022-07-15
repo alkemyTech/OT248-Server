@@ -1,6 +1,7 @@
 package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.auth.dto.UserDTO;
+import com.alkemy.ong.auth.service.mapper.UserMapper;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import java.util.Date;
 public class UserDetailsCustomService implements UserDetailsService {
 
     @Autowired
+    UserMapper userMapper;
+
+    @Autowired
     private UsersRepository usersRepository;
 
     @Autowired
@@ -28,7 +32,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
     }
 
-    public boolean save (UserDTO userDTO){
+    public UserDTO save (UserDTO userDTO){
         String encryptPass = passwordEncoder.encode(userDTO.getPassword());
         Users user = Users
                 .builder()
@@ -39,9 +43,9 @@ public class UserDetailsCustomService implements UserDetailsService {
                 .photo(userDTO.getPhoto())
                 .createdOnTimestamp(new Date())
                 .build();
-        user = usersRepository.save(user);
+        UserDTO userResponse = userMapper.userEntityToDTO(usersRepository.save(user));
 
-        return user != null;
+        return userResponse;
     }
 
 }
