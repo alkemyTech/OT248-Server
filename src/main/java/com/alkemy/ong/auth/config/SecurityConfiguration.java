@@ -21,11 +21,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private UserDetailsCustomService userDetailsCustomService;
 
     @Autowired
+    private BCryptPasswordEncoder bcryptPass;
+
+    @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsCustomService);
+        auth.userDetailsService(userDetailsCustomService).passwordEncoder(bcryptPass);
     }
 
     @Bean

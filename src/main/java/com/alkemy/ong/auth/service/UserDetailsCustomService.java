@@ -1,12 +1,47 @@
 package com.alkemy.ong.auth.service;
 
+import com.alkemy.ong.auth.dto.UserDTO;
+import com.alkemy.ong.model.Users;
+import com.alkemy.ong.repository.UsersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Collections;
+import java.util.Date;
 
 public class UserDetailsCustomService implements UserDetailsService {
+
+    @Autowired
+    private UsersRepository usersRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Users user = usersRepository.findByUsername(userName);
+        if(user == null) throw new UsernameNotFoundException("Username not found");
+        return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
     }
+
+    public boolean save (UserDTO userDTO){
+        String encryptPass = passwordEncoder.encode(userDTO.getPassword());
+        Users user = Users
+                .builder()
+                .email(userDTO.getEmail())
+                .password(encryptPass)
+                .firstName(userDTO.getFirstName())
+                .lastName(userDTO.getLastName())
+                .photo(userDTO.getPhoto())
+                .createdOnTimestamp(new Date())
+                .build();
+        user = usersRepository.save(user);
+
+        return user != null;
+    }
+
 }
