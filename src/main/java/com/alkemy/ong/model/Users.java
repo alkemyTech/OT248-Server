@@ -5,6 +5,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
+
 import javax.validation.constraints.*;
 import java.util.Date;
 
@@ -15,6 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @SQLDelete(sql = "UPDATE Users SET deleted = true WHERE id=?")
+@Where(clause = "deleted = false")
 public class Users {
 
     @Id
