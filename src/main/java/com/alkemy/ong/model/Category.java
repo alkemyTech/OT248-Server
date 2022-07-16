@@ -27,15 +27,15 @@ public class Category {
     @Column(name = "id_categories")
     private Long categoyId;
 
-    @NotNull(message = "Name may not be null")
+    @NotNull
     private String name;
 
     @Column(nullable = false)
-    @NotNull(message = "Description may not be null")
+    @NotNull
     private String description;
 
     @Column(nullable = false)
-    @NotNull(message = "Image may not be null")
+    @NotNull
     private String image;
 
     @Column(name = "update_date")
