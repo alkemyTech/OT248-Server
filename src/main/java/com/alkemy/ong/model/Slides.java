@@ -24,7 +24,7 @@ public class Slides {
     private Integer order;
     @ManyToOne
     @JoinColumn(name = "organization_id")
-    private Organizations organizationId;
+    private Organization organizationId;
 
 
 
