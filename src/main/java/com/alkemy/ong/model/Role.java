@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -19,6 +20,7 @@ public class Role {
     private Long id;
 
     @Column(nullable = false)
+    @NotNull(message =  "Name can not be null")
     private String name;
 
     private String description;
