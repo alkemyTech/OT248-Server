@@ -16,11 +16,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     private OrganizationMapper organizationMapper;
 
     @Autowired
-    OrganizationRepository organizationRepository;
+    private OrganizationRepository organizationRepository;
 
     @Override
-    public OrganizationDto getOrganizationPublic(String name) {
-        Optional<Organization> organization = organizationRepository.findByName(name);
+    public OrganizationDto getOrganizationPublic( ) {
+        Optional<Organization> organization = organizationRepository.findFirstByOrderByIdOrganization();
         return organization.map(value -> organizationMapper.OrganizationEntityToDTO(value)).orElse(null);
     }
 

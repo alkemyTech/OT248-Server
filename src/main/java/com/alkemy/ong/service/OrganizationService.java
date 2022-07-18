@@ -3,7 +3,7 @@ import com.alkemy.ong.dto.OrganizationDto;
 
 public interface OrganizationService {
 
-    public OrganizationDto getOrganizationPublic(String name);
+    public OrganizationDto getOrganizationPublic();
 
 }
 
