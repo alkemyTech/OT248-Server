@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
@@ -18,7 +19,7 @@ import org.hibernate.annotations.Where;
 @Entity
 @Data
 @Table(name = "categories")
-@SQLDelete(sql = "UPDATE table_product SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE categories SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 public class Category {
 
@@ -27,17 +28,22 @@ public class Category {
     @Column(name = "id_categories")
     private Long categoyId;
 
-    @NotNull
+    @NotNull(message = "Name may not be null")
     private String name;
 
     @Column(nullable = false)
-    @NotNull
+    @NotNull(message = "Name may not be null")
     private String description;
 
     @Column(nullable = false)
-    @NotNull
+    @NotNull(message = "Name may not be null")
     private String image;
 
+    @Column(name = "cration_date")
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+    
     @Column(name = "update_date")
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
