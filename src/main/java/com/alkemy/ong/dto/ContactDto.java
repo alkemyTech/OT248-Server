@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class ContactDto {
 
-    private Integer idContact;
+    private Long idContact;
 
     @NotNull(message = "Name can not be empty.")
     private String name;
