@@ -18,9 +18,9 @@ public class OrganizationController {
     @GetMapping("/public")
     public ResponseEntity<OrganizationDto> getOrganizationsPublic () throws Exception {
 
-        OrganizationDto OrganizationResponse = organizationService.getOrganizationPublic();
-        if(OrganizationResponse==null)return ResponseEntity.notFound().build();
-        return ResponseEntity.status(HttpStatus.OK).body(OrganizationResponse);
+        OrganizationDto organizationResponse = organizationService.getOrganizationPublic();
+        if(organizationResponse==null)return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.OK).body(organizationResponse);
     }
 
 }
