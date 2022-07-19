@@ -17,11 +17,11 @@ public class UserDTO {
     private String email;
 
     @Size(min = 8, max = 20,
-            message = "Password must be greater than 4 characters and less than 20")
+            message = "Password must be greater than 8 characters and less than 20")
     private String password;
 
-    @NotBlank(message = "Firstname can not be empty.")
-    private String firstName;
+    @NotBlank(message = "Name can not be empty.")
+    private String name;
 
     @NotBlank(message = "Lastname can not be empty.")
     private String lastName;

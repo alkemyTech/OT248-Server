@@ -10,10 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Date;
 
+@Service
 public class UserDetailsCustomService implements UserDetailsService {
 
     @Autowired
@@ -26,8 +28,8 @@ public class UserDetailsCustomService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Users user = usersRepository.findByUsername(userName);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Users user = usersRepository.findByEmail(email);
         if(user == null) throw new UsernameNotFoundException("Username not found");
         return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
     }
@@ -38,7 +40,7 @@ public class UserDetailsCustomService implements UserDetailsService {
                 .builder()
                 .email(userDTO.getEmail())
                 .password(encryptPass)
-                .firstName(userDTO.getFirstName())
+                .firstName(userDTO.getName())
                 .lastName(userDTO.getLastName())
                 .photo(userDTO.getPhoto())
                 .createdOnTimestamp(new Date())

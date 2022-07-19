@@ -11,7 +11,7 @@ public class UserMapper {
         UserDTO userDTO = UserDTO
                 .builder()
                 .email(user.getEmail())
-                .firstName(user.getFirstName())
+                .name(user.getFirstName())
                 .lastName(user.getLastName())
                 .password(user.getPassword())
                 .photo(user.getPhoto())
