@@ -18,6 +18,7 @@ import java.util.Date;
 @ToString
 @SQLDelete(sql = "UPDATE Users SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
+@Builder
 public class Users {
 
     @Id
@@ -52,7 +53,7 @@ public class Users {
     @CreationTimestamp
     private Date createdOnTimestamp;
 
-    @Column(nullable = false,name = "updated_on")
+    @Column(name = "updated_on")
     @UpdateTimestamp
     private Date updatedOnTimestamp;
 
