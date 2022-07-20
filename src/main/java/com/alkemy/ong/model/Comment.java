@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -16,11 +17,12 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Comment can not be empty")
     @NotNull(message = "Comment can not be null")
     @Column(nullable = false)
     private String body;
 
-    @OneToOne
+    @ManyToOne
     @JoinTable(name = "user_id")
     private Users userId;
 
