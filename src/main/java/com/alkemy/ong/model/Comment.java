@@ -25,11 +25,11 @@ public class Comment {
     @ManyToOne
     @JoinTable(name = "user_id")
     @NotNull(message = "user_id can not be null")
-    private Users userId;
+    private Users user;
 
     @ManyToOne
     @JoinTable(name = "news_id")
     @NotNull(message = "news_id can not be null")
-    private News newsId;
+    private News news;
 
 }
