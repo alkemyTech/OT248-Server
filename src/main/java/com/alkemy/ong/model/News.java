@@ -39,7 +39,7 @@ public class News {
 
     @OneToOne
     @JoinColumn(name = "category_id")
-    private Categories categoryId;
+    private Category categoryId;
 
     @Column(name = "create_date", nullable = false, updatable = false)
     @CreationTimestamp

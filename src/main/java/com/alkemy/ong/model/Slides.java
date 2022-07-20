@@ -20,7 +20,7 @@ public class Slides {
     private String imageUrl;
     @Column
     private String text;
-    @Column
+    @Column(name = "position")
     private Integer order;
     @ManyToOne
     @JoinColumn(name = "organization_id")
