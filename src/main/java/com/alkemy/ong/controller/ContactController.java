@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ContactController {
     
     @Autowired
-    ContactService contactService;
+    private ContactService contactService;
     
     @PostMapping()
     public ResponseEntity<?> create(@Valid @RequestBody ContactDto contactDto, BindingResult result){
