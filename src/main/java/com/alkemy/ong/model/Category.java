@@ -1,6 +1,5 @@
 package com.alkemy.ong.model;
 
-import com.sun.istack.NotNull;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
