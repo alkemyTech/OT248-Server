@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.OrganizationDto;
+import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.service.OrganizationService;
 import com.alkemy.ong.service.UserService;
@@ -20,7 +21,7 @@ public class UserController {
     private UserService userService;
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Users> updateUser(@PathVariable Long id, Map<Object,Object> patch) {
+    public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody UserDto patch) {
             Users user = userService.applyPatchToUser(id,patch);
             if(user==null)return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             return ResponseEntity.status(HttpStatus.OK).body(user);

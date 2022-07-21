@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.repository.UsersRepository;
 import com.alkemy.ong.service.UserService;
@@ -18,18 +19,18 @@ public class UserServiceImpl implements UserService {
     private UsersRepository usersRepository;
 
     @Override
-    public Users applyPatchToUser(long id, Map<Object,Object> patch) {
+    public Users applyPatchToUser(long id, UserDto patch) {
         Optional<Users> user = usersRepository.findById(id);
         if (user.isEmpty()) return null;
-        user.ifPresent(userTemp -> patch.forEach((key, value) ->
-        {
-            Field field = ReflectionUtils.findField(Users.class, (String) key);
-            assert field != null;
-            field.setAccessible(true);
-            ReflectionUtils.setField(field, userTemp, value);
-        }));
-        usersRepository.save(user.get());
-        return user.get();
+        user.ifPresent(userTemp->{
+                    userTemp.setFirstName(patch.getFirstName());
+                    userTemp.setLastName(patch.getLastName());
+                    userTemp.setPhoto(patch.getPhoto());
+                    userTemp.setRoleId(patch.getRoleId());
+                    userTemp.setEmail(patch.getEmail());
+                    userTemp.setPassword(patch.getPassword());
+                });
+        return usersRepository.save(user.get());
        }
 
 }
