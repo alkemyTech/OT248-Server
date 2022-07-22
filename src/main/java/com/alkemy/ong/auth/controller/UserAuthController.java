@@ -1,5 +1,6 @@
 package com.alkemy.ong.auth.controller;
 
+import com.alkemy.ong.auth.dto.Jwt;
 import com.alkemy.ong.auth.dto.UserDTO;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import com.alkemy.ong.auth.utils.JwUtils;
@@ -33,11 +34,11 @@ public class UserAuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> register (@Valid @RequestBody UserDTO user) throws Exception {
+    public ResponseEntity<Jwt> register (@Valid @RequestBody UserDTO user) throws Exception {
 
-        UserDTO userResponse = userDetailsCustomService.save(user);
+        Jwt jwt = userDetailsCustomService.save(user);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(jwt);
     }
 
 }
