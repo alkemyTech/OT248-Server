@@ -13,9 +13,9 @@ import java.util.List;
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
-    UsersRepository usersRepository;
+    private UsersRepository usersRepository;
     @Autowired
-    UsersMapper usersMapper;
+    private UsersMapper usersMapper;
 
     public List<UserResponseDTO> getAll() {
         return usersMapper.userEntityListToDTOList(usersRepository.findAll());

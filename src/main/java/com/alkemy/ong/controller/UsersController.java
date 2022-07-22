@@ -16,10 +16,9 @@ import java.util.List;
 public class UsersController {
 
     @Autowired
-    UsersService usersService;
+    private UsersService usersService;
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<UserResponseDTO>> getAll(){
         List<UserResponseDTO> usersResponseList = usersService.getAll();
         return ResponseEntity.ok().body(usersResponseList);
