@@ -3,7 +3,7 @@ package com.alkemy.ong.auth.service;
 import com.alkemy.ong.auth.dto.UserDTO;
 import com.alkemy.ong.auth.service.mapper.UserAuthMapper;
 import com.alkemy.ong.model.Users;
-import com.alkemy.ong.repository.UsersRepository;
+import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +22,7 @@ public class UserDetailsCustomService implements UserDetailsService {
     UserAuthMapper userMapper;
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository usersRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

@@ -1,26 +1,33 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.dto.UserDto;
+import com.alkemy.ong.dto.response.UserResponseDTO;
 import com.alkemy.ong.model.Users;
-import com.alkemy.ong.repository.UsersRepository;
+import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UserService;
+import com.alkemy.ong.service.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private UsersMapper usersMapper;
+
+    public List<UserResponseDTO> getAll() {
+        return usersMapper.userEntityListToDTOList(userRepository.findAll());
+    }
 
     @Override
     public Users applyPatchToUser(long id, UserDto patch) {
-        Optional<Users> user = usersRepository.findById(id);
+        Optional<Users> user = userRepository.findById(id);
         if (user.isEmpty()) return null;
         user.ifPresent(userTemp->{
                     userTemp.setFirstName(patch.getFirstName());
@@ -30,7 +37,7 @@ public class UserServiceImpl implements UserService {
                     userTemp.setEmail(patch.getEmail());
                     userTemp.setPassword(patch.getPassword());
                 });
-        return usersRepository.save(user.get());
+        return userRepository.save(user.get());
        }
 
 }
