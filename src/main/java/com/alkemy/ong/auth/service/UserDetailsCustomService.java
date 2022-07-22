@@ -1,7 +1,7 @@
 package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.auth.dto.UserDTO;
-import com.alkemy.ong.auth.service.mapper.UserMapper;
+import com.alkemy.ong.auth.service.mapper.UserAuthMapper;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.Date;
 public class UserDetailsCustomService implements UserDetailsService {
 
     @Autowired
-    UserMapper userMapper;
+    UserAuthMapper userMapper;
 
     @Autowired
     private UsersRepository usersRepository;

@@ -5,7 +5,7 @@ import com.alkemy.ong.model.Users;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserMapper {
+public class UserAuthMapper {
 
     public UserDTO userEntityToDTO (Users user){
         UserDTO userDTO = UserDTO
