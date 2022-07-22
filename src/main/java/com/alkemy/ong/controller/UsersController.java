@@ -1,6 +1,8 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.service.UsersService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,12 @@ public class UsersController {
     private UsersService usersService;
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
-        usersService.deleteUser(id);
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        try {
+            usersService.deleteUser(id);
+        } catch (Exception ex) {
+           return new ResponseEntity<>(ex.getMessage() ,HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
