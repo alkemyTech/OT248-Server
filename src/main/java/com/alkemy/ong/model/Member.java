@@ -1,17 +1,22 @@
 package com.alkemy.ong.model;
 
-import com.sun.istack.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE members SET softDelete = true WHERE id=?")
+@Where(clause = "softDelete=false")
 @Entity
 @Table(name = "members")
 public class Member {
@@ -20,7 +25,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "name can´t be null")
     private String name;
 
     @Nullable
@@ -32,7 +37,7 @@ public class Member {
     @Nullable
     private String linkedinUrl;
 
-    @NotNull
+    @NotNull(message = "image can´t be null")
     private String image;
 
     @Nullable

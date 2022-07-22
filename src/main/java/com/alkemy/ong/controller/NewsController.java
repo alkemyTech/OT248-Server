@@ -1,5 +1,7 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.dto.NewsDto;
+import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,13 @@ import javax.validation.Valid;
 @RequestMapping("/news")
 public class NewsController {
 
-    @Autowired private INewsService iNewsService;
+    @Autowired private NewsService newsService;
 
     @PostMapping
-    public ResponseEntity<NewsDto> crear(
+    public ResponseEntity<NewsDto> createNews(
             @Valid
             @RequestBody NewsDto newsDto
     ){
-        return new ResponseEntity<NewsDto>(iNewsService.crear(newsDto), HttpStatus.CREATED);
+        return new ResponseEntity<NewsDto>(newsService.createNews(newsDto), HttpStatus.CREATED);
     }
 }
