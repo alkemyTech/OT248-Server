@@ -2,6 +2,7 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.model.Users;
+import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UsersRepository;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UsersRepository usersRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public Users applyPatchToUser(long id, UserDto patch) {
@@ -26,7 +29,7 @@ public class UserServiceImpl implements UserService {
                     userTemp.setFirstName(patch.getFirstName());
                     userTemp.setLastName(patch.getLastName());
                     userTemp.setPhoto(patch.getPhoto());
-                    userTemp.setRoleId(patch.getRoleId());
+                    userTemp.setRole(roleRepository.findById(patch.getRoleId()).get());
                     userTemp.setEmail(patch.getEmail());
                     userTemp.setPassword(patch.getPassword());
                 });

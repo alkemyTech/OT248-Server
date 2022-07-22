@@ -1,10 +1,16 @@
 package com.alkemy.ong.auth.service;
 
+import com.alkemy.ong.auth.dto.Jwt;
 import com.alkemy.ong.auth.dto.UserDTO;
 import com.alkemy.ong.auth.service.mapper.UserAuthMapper;
+import com.alkemy.ong.auth.utils.JwUtils;
+import com.alkemy.ong.model.Role;
 import com.alkemy.ong.model.Users;
+import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,8 +18,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserDetailsCustomService implements UserDetailsService {
@@ -22,32 +32,46 @@ public class UserDetailsCustomService implements UserDetailsService {
     UserAuthMapper userMapper;
 
     @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
     private UsersRepository usersRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwUtils jwUtils;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Users user = usersRepository.findByEmail(email);
         if(user == null) throw new UsernameNotFoundException("Username not found");
-        return new User(user.getEmail(), user.getPassword(), Collections.emptyList());
+        return new User(user.getEmail(), user.getPassword(), setRoleUser(user.getRole()));
     }
 
-    public UserDTO save (UserDTO userDTO){
+    public Jwt save (UserDTO userDTO){
         String encryptPass = passwordEncoder.encode(userDTO.getPassword());
-        Users user = Users
-                .builder()
-                .email(userDTO.getEmail())
-                .password(encryptPass)
-                .firstName(userDTO.getName())
-                .lastName(userDTO.getLastName())
-                .photo(userDTO.getPhoto())
-                .createdOnTimestamp(new Date())
-                .build();
-        UserDTO userResponse = userMapper.userEntityToDTO(usersRepository.save(user));
+        Users user = userMapper.userDTOtoEntity(userDTO);
+        user.setPassword(encryptPass);
+        user.setRole(roleRepository.findById(1L).get());
+        usersRepository.save(user);
 
-        return userResponse;
+        String jwt = jwUtils.generateToken(loadUserByUsername(user.getEmail()));
+
+        return Jwt.builder()
+                .token(jwt)
+                .build();
+    }
+
+    private Collection<? extends GrantedAuthority> mapRoles(Set<Role> roles) {
+        return roles.stream().map(rol -> new SimpleGrantedAuthority(rol.getName())).collect(Collectors.toList());
+    }
+
+    private Set<GrantedAuthority> setRoleUser(Role role) {
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
+        return Set.of(authority);
+
     }
 
 }

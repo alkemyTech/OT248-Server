@@ -46,8 +46,9 @@ public class Users {
     @NotNull(message = "photo can not be empty.")
     private String photo;
 
-    @Column(name = "role_id")
-    private Long roleId;
+    @OneToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @Column(nullable = false, updatable = false,name = "created_on")
     @CreationTimestamp
