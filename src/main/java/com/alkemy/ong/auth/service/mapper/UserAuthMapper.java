@@ -1,6 +1,6 @@
 package com.alkemy.ong.auth.service.mapper;
 
-import com.alkemy.ong.auth.dto.UserDTO;
+import com.alkemy.ong.auth.dto.request.UserDTO;
 import com.alkemy.ong.model.Users;
 import org.springframework.stereotype.Component;
 
