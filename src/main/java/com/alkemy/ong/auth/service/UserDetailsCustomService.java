@@ -6,8 +6,12 @@ import com.alkemy.ong.auth.service.mapper.UserAuthMapper;
 import com.alkemy.ong.auth.utils.JwUtils;
 import com.alkemy.ong.model.Role;
 import com.alkemy.ong.model.Users;
+<<<<<<< HEAD
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UsersRepository;
+=======
+import com.alkemy.ong.repository.UserRepository;
+>>>>>>> 60e051fa872bfbc06cd44aff22639de1456ceec2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,10 +36,14 @@ public class UserDetailsCustomService implements UserDetailsService {
     UserAuthMapper userMapper;
 
     @Autowired
+<<<<<<< HEAD
     RoleRepository roleRepository;
 
     @Autowired
     private UsersRepository usersRepository;
+=======
+    private UserRepository usersRepository;
+>>>>>>> 60e051fa872bfbc06cd44aff22639de1456ceec2
 
     @Autowired
     private PasswordEncoder passwordEncoder;
