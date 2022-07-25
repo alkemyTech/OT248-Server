@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,11 +27,12 @@ import java.util.stream.Collectors;
 public class UserDetailsCustomService implements UserDetailsService {
 
     @Autowired
-    UserAuthMapper userMapper;
+    private UserAuthMapper userMapper;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -41,16 +43,22 @@ public class UserDetailsCustomService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
         Users user = userRepository.findByEmail(email);
         if(user == null) throw new UsernameNotFoundException("Username not found");
-        return new User(user.getEmail(), user.getPassword(), setRoleUser(user.getRole()));
+
+        Collection<GrantedAuthority> authorities = Collections
+                .singleton(new SimpleGrantedAuthority(user.getRole().getName()));
+
+        return new User(user.getEmail(), user.getPassword(), authorities);
+
     }
 
     public Jwt save (UserDTO userDTO){
         String encryptPass = passwordEncoder.encode(userDTO.getPassword());
         Users user = userMapper.userDTOtoEntity(userDTO);
         user.setPassword(encryptPass);
-        user.setRole(roleRepository.findById(1L).get());
+        user.setRole(roleRepository.findByName("ROLE_USER"));
         userRepository.save(user);
 
         String jwt = jwUtils.generateToken(loadUserByUsername(user.getEmail()));
@@ -59,15 +67,4 @@ public class UserDetailsCustomService implements UserDetailsService {
                 .token(jwt)
                 .build();
     }
-
-    private Collection<? extends GrantedAuthority> mapRoles(Set<Role> roles) {
-        return roles.stream().map(rol -> new SimpleGrantedAuthority(rol.getName())).collect(Collectors.toList());
-    }
-
-    private Set<GrantedAuthority> setRoleUser(Role role) {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
-        return Set.of(authority);
-
-    }
-
 }
