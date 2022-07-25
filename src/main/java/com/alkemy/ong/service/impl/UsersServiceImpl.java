@@ -24,8 +24,6 @@ public class UsersServiceImpl implements UsersService {
         }else{
             throw new Exception("a user with that id was not found");
         }
-        
-        
     }
     
 }
