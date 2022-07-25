@@ -6,12 +6,8 @@ import com.alkemy.ong.auth.service.mapper.UserAuthMapper;
 import com.alkemy.ong.auth.utils.JwUtils;
 import com.alkemy.ong.model.Role;
 import com.alkemy.ong.model.Users;
-<<<<<<< HEAD
 import com.alkemy.ong.repository.RoleRepository;
-import com.alkemy.ong.repository.UsersRepository;
-=======
 import com.alkemy.ong.repository.UserRepository;
->>>>>>> 60e051fa872bfbc06cd44aff22639de1456ceec2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,10 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,14 +29,9 @@ public class UserDetailsCustomService implements UserDetailsService {
     UserAuthMapper userMapper;
 
     @Autowired
-<<<<<<< HEAD
     RoleRepository roleRepository;
 
-    @Autowired
-    private UsersRepository usersRepository;
-=======
-    private UserRepository usersRepository;
->>>>>>> 60e051fa872bfbc06cd44aff22639de1456ceec2
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -53,7 +41,7 @@ public class UserDetailsCustomService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Users user = usersRepository.findByEmail(email);
+        Users user = userRepository.findByEmail(email);
         if(user == null) throw new UsernameNotFoundException("Username not found");
         return new User(user.getEmail(), user.getPassword(), setRoleUser(user.getRole()));
     }
@@ -63,7 +51,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         Users user = userMapper.userDTOtoEntity(userDTO);
         user.setPassword(encryptPass);
         user.setRole(roleRepository.findById(1L).get());
-        usersRepository.save(user);
+        userRepository.save(user);
 
         String jwt = jwUtils.generateToken(loadUserByUsername(user.getEmail()));
 
