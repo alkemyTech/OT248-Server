@@ -8,6 +8,7 @@ import com.alkemy.ong.model.Role;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
+import com.amazonaws.services.kms.model.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -56,6 +57,7 @@ public class UserDetailsCustomService implements UserDetailsService {
 
     public Jwt save (UserDTO userDTO){
         String encryptPass = passwordEncoder.encode(userDTO.getPassword());
+        if (userRepository.findByEmail(userDTO.getEmail()) != null) throw new AlreadyExistsException("Email is already in use");
         Users user = userMapper.userDTOtoEntity(userDTO);
         user.setPassword(encryptPass);
         user.setRole(roleRepository.findByName("ROLE_USER"));
