@@ -3,14 +3,13 @@ package com.alkemy.ong.auth.controller;
 import com.alkemy.ong.auth.dto.UserDTO;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import com.alkemy.ong.auth.utils.JwUtils;
+import com.alkemy.ong.dto.response.UserResponseDTO;
+import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -21,6 +20,8 @@ public class UserAuthController {
     private UserDetailsCustomService userDetailsCustomService;
     private AuthenticationManager authenticationManager;
     private JwUtils jwUtils;
+
+    @Autowired private UserService userService;
 
     @Autowired
     public UserAuthController(
@@ -38,6 +39,13 @@ public class UserAuthController {
         UserDTO userResponse = userDetailsCustomService.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponse);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponseDTO> getUserData(
+            @RequestParam(name = "Authorization") String token
+    ){
+        return ResponseEntity.ok().body(userService.getUserDataByToken(token));
     }
 
 }
