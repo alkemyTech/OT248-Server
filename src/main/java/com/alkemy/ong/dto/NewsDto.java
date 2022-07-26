@@ -15,7 +15,7 @@ import java.util.Date;
 public class NewsDto {
 
 
-    private Long id;
+    private Long idNews;
 
     @NotBlank(message = "Name can not be empty.")
     private String name;
