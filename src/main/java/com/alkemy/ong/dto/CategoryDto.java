@@ -2,9 +2,11 @@ package com.alkemy.ong.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class CategoryDto {
 
     private Long categoyId;

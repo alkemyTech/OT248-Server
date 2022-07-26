@@ -4,5 +4,5 @@ import com.alkemy.ong.dto.CategoryDto;
 
 public interface CategoryService {
 
-    public CategoryDto createCategory(CategoryDto categoryDto);
+    public CategoryDto createCategory(CategoryDto categoryDto) throws Exception;
 }
