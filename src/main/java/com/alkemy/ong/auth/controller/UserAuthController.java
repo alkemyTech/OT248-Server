@@ -43,7 +43,7 @@ public class UserAuthController {
 
     @GetMapping("/me")
     public ResponseEntity<UserResponseDTO> getUserData(
-            @RequestParam(name = "Authorization") String token
+            @RequestHeader(name = "Authorization") String token
     ){
         return ResponseEntity.ok().body(userService.getUserDataByToken(token));
     }
