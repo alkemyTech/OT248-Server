@@ -2,7 +2,7 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.model.Users;
-import com.alkemy.ong.repository.UsersRepository;
+import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UsersService;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class UsersServiceImpl implements UsersService {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository usersRepository;
     
     
     @Override
