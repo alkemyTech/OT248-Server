@@ -2,6 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.service.impl.AmazonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,8 +19,8 @@ public class AmazonS3Controller {
 
 
     @PostMapping("/uploadFile")
-    public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
-        return this.amazonService.uploadFile(file);
+    public ResponseEntity<String> uploadFile(@RequestPart(value = "file") MultipartFile file) {
+        return ResponseEntity.ok().body(this.amazonService.uploadFile(file));
     }
 
     @DeleteMapping("/deleteFile")
