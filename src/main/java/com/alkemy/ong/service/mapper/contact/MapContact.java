@@ -2,7 +2,9 @@ package com.alkemy.ong.service.mapper.contact;
 
 import com.alkemy.ong.dto.ContactDto;
 import com.alkemy.ong.model.Contact;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MapContact {
 
     public ContactDto mapDTO(Contact contact) {
