@@ -13,8 +13,6 @@ public class ContactServiceImpl implements ContactService {
 
     @Autowired
     private ContactRepository contactRepository;
-
-    @Autowired
     private MapContact mapContact;
 
     @Override

@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 ////////////////////////////////////
                 //          Admin Routes          //
                 ////////////////////////////////////
-                
+
                 .antMatchers(HttpMethod.GET, "/users").hasRole("ROLE_ADMIN")
                 .antMatchers(HttpMethod.POST, "/activities").hasRole("ROLE_ADMIN")
                 .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
