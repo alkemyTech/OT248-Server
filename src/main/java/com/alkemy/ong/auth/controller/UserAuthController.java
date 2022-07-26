@@ -21,8 +21,10 @@ public class UserAuthController {
     @Autowired
     private UserDetailsCustomService userDetailsCustomService;
 
+
     @PostMapping("/register")
     public ResponseEntity<Jwt> register(@Valid @RequestBody UserDTO user) throws Exception {
+
 
         Jwt jwt = userDetailsCustomService.save(user);
 
