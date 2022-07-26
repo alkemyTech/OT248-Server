@@ -3,6 +3,7 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.dto.response.UserResponseDTO;
 import com.alkemy.ong.model.Users;
+import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UserService;
 import com.alkemy.ong.service.mapper.UsersMapper;
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private UsersMapper usersMapper;
@@ -33,12 +36,24 @@ public class UserServiceImpl implements UserService {
                     userTemp.setFirstName(patch.getFirstName());
                     userTemp.setLastName(patch.getLastName());
                     userTemp.setPhoto(patch.getPhoto());
-                    userTemp.setRoleId(patch.getRoleId());
+                    userTemp.setRole(roleRepository.findById(patch.getRoleId()).get());
                     userTemp.setEmail(patch.getEmail());
                     userTemp.setPassword(patch.getPassword());
                 });
         return userRepository.save(user.get());
        }
+
+    @Override
+    public void deleteUser(Long id) throws Exception {
+        Optional<Users> response = userRepository.findById(id);
+        if (response.isPresent()) {
+            Users users = response.get();
+            userRepository.delete(users);
+        } else {
+            throw new Exception("a user with that id was not found");
+        }
+    }
+
 
 }
 

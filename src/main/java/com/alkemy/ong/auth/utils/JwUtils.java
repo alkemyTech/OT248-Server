@@ -26,13 +26,14 @@ public class JwUtils {
     }
 
     private Claims extractAllClaims(String token){
-        return Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) { return extractExpiration(token).before(new Date());}
 
     public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
+        userDetails.getAuthorities().forEach(grantedAuthority -> claims.put("role", grantedAuthority.getAuthority()));
         return createToken(claims, userDetails.getUsername());
     }
 
