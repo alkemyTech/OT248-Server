@@ -24,7 +24,7 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "new_id")
-    private Long idNews;
+    private Long id;
 
     @Column(nullable = false)
     @NotBlank(message = "Name can not be empty.")

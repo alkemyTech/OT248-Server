@@ -20,10 +20,10 @@ public class NewsController {
         return new ResponseEntity<NewsDto>(newsService.createNews(newsDto), HttpStatus.CREATED);
     }
 
-    @GetMapping("/detail/{idNews}")
-    public ResponseEntity<NewsDto> detailsNew(@Valid @PathVariable(value = "idNews") Long idNews) {
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<NewsDto> detailsNew(@Valid @PathVariable(value = "id") Long id) {
         try {
-            NewsDto newsDto = newsService.findNewsById(idNews);
+            NewsDto newsDto = newsService.findNewsById(id);
             return ResponseEntity
                     .ok()
                     .body(newsDto);
