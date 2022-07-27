@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -24,7 +23,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     private OrganizationRepository organizationRepository;
 
     @Override
-    public OrganizationDto getOrganizationPublic( ) {
+    public OrganizationDto getOrganizationPublic() {
         Optional<Organization> organization = organizationRepository.findFirstByOrderByIdOrganization();
         return organization.map(value -> organizationMapper.OrganizationEntityToDTO(value)).orElse(null);
     }
@@ -35,17 +34,8 @@ public class OrganizationServiceImpl implements OrganizationService {
         Optional<Organization> organizationEntity = organizationRepository.findFirstByOrderByIdOrganization();
         if (organizationEntity.isEmpty()) throw new EntityNotFoundException("Organization is not present.");
         /* Update */
-        Organization organization = Organization.builder()
-                .idOrganization(organizationEntity.get().getIdOrganization())
-                .name(organizationUpdateDTO.getName())
-                .address(organizationUpdateDTO.getAddress())
-                .phone(organizationUpdateDTO.getPhone())
-                .image(organizationUpdateDTO.getImage())
-                .aboutUsText(organizationUpdateDTO.getAboutUsText())
-                .welcomeText(organizationUpdateDTO.getWelcomeText())
-                .creationTimestamp(organizationEntity.get().getCreationTimestamp())
-                .updateTimestamp(new Date())
-                .build();
+        Organization organization = organizationEntity.get(); /* I do it in two steps for get the id and creation date */
+        organization = organizationMapper.organizationDTOToEntity(organizationUpdateDTO);
         /* Save and turn the updated entity into DTO and return it */
         return organizationMapper
                 .organizationEntityToOrganizationUpdateDTO(organizationRepository
