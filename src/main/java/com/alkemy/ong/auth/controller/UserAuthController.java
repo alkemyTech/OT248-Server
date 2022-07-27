@@ -30,7 +30,7 @@ import javax.validation.Valid;
 public class UserAuthController {
 
 
-    private UserDetailsCustomService userDetailsCustomService;
+    //private UserDetailsCustomService userDetailsCustomService;
     private AuthenticationManager authenticationManager;
     private JwUtils jwUtils;
 
