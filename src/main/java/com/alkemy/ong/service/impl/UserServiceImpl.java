@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO getUserDataByToken(String token) {
-        String userName = jwUtils.extractUsername(token);
+        String userName = jwUtils.extractUsername(token.substring(7));
         Users users = userRepository.findByFirstName(userName);
         return usersMapper.userEntityToDTO(users);
     }
