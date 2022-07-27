@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 public class TestimonialServiceImpl implements TestimonialService {
 
     @Autowired
-    TestimonialRepository testimonialRepository;
+    private TestimonialRepository testimonialRepository;
 
     @Autowired
-    TestimonialMapper testimonialMapper;
+    private TestimonialMapper testimonialMapper;
 
     @Override
     public TestimonialDto createTestimonial(TestimonialDto testimonialDto) {

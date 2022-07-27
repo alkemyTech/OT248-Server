@@ -3,7 +3,6 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.TestimonialDto;
 import com.alkemy.ong.service.TestimonialService;
-import com.alkemy.ong.service.mapper.TestimonialMapper;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +20,7 @@ public class TestimonialController {
     @Autowired
     private TestimonialService testimonialService;
     
-    @Autowired
-    private TestimonialMapper testimonialMapper;
+    
     
     @PostMapping()
     public ResponseEntity<?> createTestimonial(@Valid @RequestBody TestimonialDto testimonialDto,  BindingResult result){
