@@ -1,10 +1,10 @@
 package com.alkemy.ong.dto;
 
+import com.alkemy.ong.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
