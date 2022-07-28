@@ -27,6 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private JwtRequestFilter jwtRequestFilter;
 
     private static final String ROLE_ADMIN = "ADMIN";
+    private static final String ROLE_USER = "USER";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -54,9 +55,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //  Admin Routes  //
                 ///////////////////
 
-                .antMatchers(HttpMethod.POST, "/activities").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/organization/public").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/users").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.POST, "/activities").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/users").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/news/detail").hasRole(ROLE_ADMIN)
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
