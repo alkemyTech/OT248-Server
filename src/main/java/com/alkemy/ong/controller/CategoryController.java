@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    
     @PostMapping()
     public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryDto categoryDto,
             BindingResult result) {
