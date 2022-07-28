@@ -1,20 +1,21 @@
 package com.alkemy.ong.model;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-
 import lombok.Builder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import java.util.Date;
+
+
+
+
 
 @Entity
 @Data
@@ -24,6 +25,7 @@ import java.util.Date;
 @SQLDelete(sql = "UPDATE testimonials SET softDelete = true WHERE id =?")
 @Where(clause = "softDelete = false")
 @Table(name = "testimonials")
+
 public class Testimonial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
