@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.OrganizationDto;
+import com.alkemy.ong.dto.OrganizationUpdateDTO;
 import com.alkemy.ong.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,12 @@ public class OrganizationController {
         OrganizationDto organizationResponse = organizationService.getOrganizationPublic();
         if(organizationResponse==null)return ResponseEntity.notFound().build();
         return ResponseEntity.status(HttpStatus.OK).body(organizationResponse);
+    }
+
+    @PutMapping("/public")
+    public ResponseEntity<OrganizationUpdateDTO> update (@Valid @RequestBody OrganizationUpdateDTO organizationUpdateDTO) {
+        OrganizationUpdateDTO organizationUpdated = organizationService.updateOrganization(organizationUpdateDTO);
+        return ResponseEntity.ok().body(organizationUpdated);
     }
 
 }
