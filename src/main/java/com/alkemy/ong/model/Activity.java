@@ -9,6 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -24,13 +26,16 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column( nullable = false)
+    @Column(nullable = false)
+    @NotNull(message = "{error.name.notnull}")
     private String name;
 
     @Column(nullable = false)
+    @NotNull(message = "{error.content.notnull}")
     private String content;
 
     @Column(nullable = false)
+    @NotNull(message = "{error.image.notnull}")
     private String image;
 
     @Column(name = "created_date", updatable=false)
