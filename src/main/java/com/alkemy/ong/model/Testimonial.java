@@ -7,9 +7,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import lombok.Builder;
 
 @Entity
 @Data
+@Builder
 public class Testimonial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
