@@ -34,7 +34,7 @@ public class Testimonial {
     @JsonIgnoreProperties({"testimonials"})
     private News news;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"testimonial"})
     private Users users;

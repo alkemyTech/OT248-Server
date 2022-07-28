@@ -9,6 +9,7 @@ import org.hibernate.annotations.Where;
 
 import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -61,6 +62,6 @@ public class Users {
     @Column(name = "deleted")
     private boolean deleted = Boolean.FALSE;
 
-    @OneToOne(mappedBy = "users")
-    private Testimonial testimonial;
+    @OneToMany(cascade = CascadeType.PERSIST,mappedBy = "users")
+    private List<Testimonial> testimonial;
 }
