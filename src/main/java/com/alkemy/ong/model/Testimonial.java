@@ -1,5 +1,6 @@
 package com.alkemy.ong.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -27,4 +28,16 @@ public class Testimonial {
     private Date timestamp;
 
     private Boolean status = true; //status = false, is deleted
+
+    @ManyToOne
+    @JoinColumn(name = "new_id")
+    @JsonIgnoreProperties({"testimonials"})
+    private News news;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"testimonial"})
+    private Users users;
+
+
 }

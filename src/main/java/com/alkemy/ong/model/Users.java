@@ -60,4 +60,7 @@ public class Users {
 
     @Column(name = "deleted")
     private boolean deleted = Boolean.FALSE;
+
+    @OneToOne(mappedBy = "users")
+    private Testimonial testimonial;
 }

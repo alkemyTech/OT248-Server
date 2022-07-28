@@ -1,5 +1,6 @@
 package com.alkemy.ong.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @SQLDelete(sql = "UPDATE news SET deleted = true WHERE new_id =?")
@@ -53,5 +55,8 @@ public class News {
 
     @Column
     private boolean deleted = Boolean.FALSE;
+
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "news")
+    private List<Testimonial> testimonials;
 
 }
