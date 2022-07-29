@@ -5,7 +5,9 @@ import com.alkemy.ong.model.Category;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import com.alkemy.ong.service.mapper.CategoryMapper;
-import java.util.Optional;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +17,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-    
+
     @Autowired
     CategoryMapper categoryMapper;
 
@@ -30,9 +32,10 @@ public class CategoryServiceImpl implements CategoryService {
         }else {
             throw new Exception("There is already a category with this name");
         }
-        
-        
+    }
 
+    public List<String> getCategoryNames() {
+       return categoryRepository.findAllCategoryNames();
     }
 
 }
