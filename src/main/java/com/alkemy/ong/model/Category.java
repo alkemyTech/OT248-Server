@@ -15,12 +15,14 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
 import javax.validation.constraints.NotNull;
+import lombok.Builder;
 
 @Entity
 @Data
 @Table(name = "categories")
 @SQLDelete(sql = "UPDATE categories SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
+@Builder
 public class Category {
 
     @Id
