@@ -1,8 +1,7 @@
 package com.alkemy.ong.model;
 
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,6 +18,9 @@ import java.util.Date;
 @Where(clause = "softDelete=false")
 @Entity
 @Table(name = "members")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
     @Id
