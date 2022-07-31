@@ -6,23 +6,28 @@ import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.SlideService;
 import com.alkemy.ong.service.mapper.SlideMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Optional;
+import java.util.Locale;
 
 @Service
 public class SlideServiceImpl implements SlideService {
 
     @Autowired
-    SlideRepository slideRepository;
+    private MessageSource messageSource;
+
     @Autowired
-    SlideMapper slideMapper;
+    private SlideRepository slideRepository;
+    @Autowired
+    private SlideMapper slideMapper;
 
     @Override
     public SlideResponseDTO getById(Long id) {
-        Optional<Slide> slideFound = slideRepository.findById(id);
-        if (slideFound.isEmpty()) throw new EntityNotFoundException("Slide with that id not found");
-        return slideMapper.entityToDTO(slideFound.get());
+        Slide slideFound = slideRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Slide " + messageSource.getMessage("notfound", null, Locale.US)));
+        return slideMapper.entityToDTO(slideFound);
     }
 }

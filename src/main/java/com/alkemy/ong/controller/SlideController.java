@@ -21,13 +21,9 @@ public class SlideController {
     SlideService slideService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById (@PathVariable Long id){
-        try {
+    public ResponseEntity<SlideResponseDTO> getById (@PathVariable Long id){
             SlideResponseDTO slideResponse = slideService.getById(id);
             return ResponseEntity.ok().body(slideResponse);
-        } catch (EntityNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
     }
 
 }
