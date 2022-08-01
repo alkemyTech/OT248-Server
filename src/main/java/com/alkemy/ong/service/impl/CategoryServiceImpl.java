@@ -5,6 +5,7 @@ import com.alkemy.ong.model.Category;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import com.alkemy.ong.service.mapper.CategoryMapper;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,20 @@ public class CategoryServiceImpl implements CategoryService {
         
         
 
+    }
+
+    @Override
+    public CategoryDto findById(Long id) {
+        
+        Optional<Category> respuesta = categoryRepository.findById(id);
+        if (respuesta.isPresent()) {
+            Category category = respuesta.get();
+            return categoryMapper.CategoryToCategoryDTO(category);
+        } else {
+            throw new Exception("No se encontro el genero");
+        }
+        
+       
     }
 
 }
