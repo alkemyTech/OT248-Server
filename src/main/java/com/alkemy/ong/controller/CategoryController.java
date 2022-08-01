@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.CategoryDto;
+import com.alkemy.ong.exception.EmptyListException;
 import com.alkemy.ong.service.CategoryService;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<String>> getAllNames(){
+    public ResponseEntity<List<String>> getAllNames() throws EmptyListException {
         List<String> categoryNames = categoryService.getCategoryNames();
         return ResponseEntity.ok().body(categoryNames);
     }
