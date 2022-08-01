@@ -18,7 +18,7 @@ import javax.persistence.EntityNotFoundException;
 public class SlideController {
 
     @Autowired
-    SlideService slideService;
+    private SlideService slideService;
 
     @GetMapping("/{id}")
     public ResponseEntity<SlideResponseDTO> getById (@PathVariable Long id){

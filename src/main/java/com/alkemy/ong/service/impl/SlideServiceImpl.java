@@ -27,7 +27,7 @@ public class SlideServiceImpl implements SlideService {
     public SlideResponseDTO getById(Long id) {
         Slide slideFound = slideRepository
                 .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Slide " + messageSource.getMessage("notfound", null, Locale.US)));
+                .orElseThrow(() -> new EntityNotFoundException("Slide " + messageSource.getMessage("not.found", null, Locale.US)));
         return slideMapper.entityToDTO(slideFound);
     }
 }
