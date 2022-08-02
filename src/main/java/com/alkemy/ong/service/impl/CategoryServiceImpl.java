@@ -45,9 +45,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto findById(Long id) {
         
-        Optional<Category> respuesta = categoryRepository.findById(id);
-        if (respuesta.isPresent()) {
-            Category category = respuesta.get();
+        Optional<Category> res = categoryRepository.findById(id);
+        if (res.isPresent()) {
+            Category category = res.get();
             return categoryMapper.CategoryToCategoryDTO(category);
             
         } else {
