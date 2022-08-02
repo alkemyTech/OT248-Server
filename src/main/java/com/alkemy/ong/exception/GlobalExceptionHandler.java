@@ -1,11 +1,17 @@
 package com.alkemy.ong.exception;
 
 import org.hibernate.TypeMismatchException;
+import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.support.WebExchangeBindException;
 import org.springframework.web.server.ResponseStatusException;
+
+import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @ControllerAdvice
@@ -21,5 +27,13 @@ public class GlobalExceptionHandler {
         throw new WebExchangeBindException(Objects.requireNonNull(exception.getMethodParameter()), exception.getBindingResult()) {
             String message = "${fieldError?.field} has invalid value '${fieldError?.rejectedValue}'";
         };
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseBody
+    public MessageResponse handleNotFound (Exception e, HttpServletRequest request){
+        return new MessageResponse (LocalDateTime.now(), e, request);
+
     }
 }
