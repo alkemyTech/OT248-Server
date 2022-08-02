@@ -18,6 +18,9 @@ public class CommentMapper {
     @Autowired
     private NewsRepository newsRepository;
 
+    public CommentMapper() {
+    }
+
     public CommentDto commentToDto(Comment comment) {
         CommentDto commentDto = new CommentDto();
         commentDto.setId(comment.getId());
