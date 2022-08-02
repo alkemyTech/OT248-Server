@@ -1,6 +1,7 @@
 package com.alkemy.ong.dto;
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 
 @Getter
@@ -21,5 +22,11 @@ public class OrganizationDto {
 
     @NotNull(message = "Phone can not be empty.")
     private Integer phone;
+
+    private String urlFacebook;
+
+    private String urlLinkedin;
+
+    private String urlInstagram;
 
 }
