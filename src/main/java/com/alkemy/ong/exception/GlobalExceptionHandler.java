@@ -1,5 +1,6 @@
 package com.alkemy.ong.exception;
 
+import java.time.LocalDateTime;
 import org.hibernate.TypeMismatchException;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,10 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
+import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -36,4 +41,5 @@ public class GlobalExceptionHandler {
         return new MessageResponse (LocalDateTime.now(), e, request);
 
     }
+
 }
