@@ -6,4 +6,6 @@ public interface NewsService {
 
     public NewsDto createNews(NewsDto newsDto);
     NewsDto findNewsById(Long id);
+
+    void deleteById(Long id) throws Exception;
 }
