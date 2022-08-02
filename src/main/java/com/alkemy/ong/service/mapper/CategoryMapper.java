@@ -15,6 +15,8 @@ public class CategoryMapper {
                 .name(category.getName())
                 .image(category.getImage())
                 .description(category.getDescription())
+                .createDate(category.getCreateDate())
+                .updateDate(category.getUpdateDate())
                 .build();
 
         return categoryDto;
@@ -25,6 +27,8 @@ public class CategoryMapper {
                 .name(categoryDto.getName())
                 .image(categoryDto.getImage())
                 .description(categoryDto.getDescription())
+                .createDate(categoryDto.getCreateDate())
+                .updateDate(categoryDto.getUpdateDate())
                 .build();
 
         return category;

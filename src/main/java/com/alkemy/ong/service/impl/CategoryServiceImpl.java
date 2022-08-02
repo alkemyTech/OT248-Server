@@ -6,12 +6,13 @@ import com.alkemy.ong.model.Category;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
 import com.alkemy.ong.service.mapper.CategoryMapper;
+import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
 import com.amazonaws.services.kms.model.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -20,8 +21,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private MessageSource messageSource;
+    
     @Autowired
     private CategoryRepository categoryRepository;
+    
     @Autowired
     private CategoryMapper categoryMapper;
 
@@ -42,6 +45,22 @@ public class CategoryServiceImpl implements CategoryService {
        if (categoryRepository.findAllCategoryNames().isEmpty())
            throw new EmptyListException(messageSource.getMessage("error.categorylist.empty", null, Locale.US));
        return categoryRepository.findAllCategoryNames();
+    }
+
+    @Override
+    public CategoryDto findById(Long id) {
+        
+        Optional<Category> res = categoryRepository.findById(id);
+        if (res.isPresent()) {
+            Category category = res.get();
+            return categoryMapper.CategoryToCategoryDTO(category);
+            
+        } else {
+           throw new EntityNotFoundException(messageSource.getMessage("category.notFound", null, Locale.US));
+          
+        }
+        
+       
     }
 
 }
