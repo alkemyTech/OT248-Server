@@ -4,5 +4,5 @@ import com.alkemy.ong.dto.ContactDto;
 
 public interface ContactService {
 
-    public ContactDto createContact(ContactDto contactDto);
+    ContactDto createContact(ContactDto contactDto);
 }

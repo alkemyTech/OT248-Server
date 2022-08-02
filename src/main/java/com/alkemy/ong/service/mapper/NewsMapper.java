@@ -8,13 +8,12 @@ import org.springframework.stereotype.Component;
 public class NewsMapper {
 
     public NewsDto newsEntityToDTO (News news) {
-        NewsDto newsDto = NewsDto
+        return NewsDto
                 .builder()
                 .content(news.getContent())
                 .name(news.getName())
                 .image(news.getImage())
                 .build();
-        return newsDto;
     }
 
 }

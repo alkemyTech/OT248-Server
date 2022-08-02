@@ -6,6 +6,6 @@ import com.alkemy.ong.dto.TestimonialDto;
 
 public interface TestimonialService {
     
-    public TestimonialDto createTestimonial(TestimonialDto testimonialDto);
+    TestimonialDto createTestimonial(TestimonialDto testimonialDto);
     
 }
