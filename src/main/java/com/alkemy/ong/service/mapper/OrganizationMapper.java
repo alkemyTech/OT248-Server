@@ -17,6 +17,9 @@ public class OrganizationMapper {
                 .image(organization.getImage())
                 .address(organization.getAddress())
                 .phone(organization.getPhone())
+                .urlFacebook(organization.getUrlFacebook())
+                .urlLinkedin(organization.getUrlLinkedin())
+                .urlInstagram(organization.getUrlInstagram())
                 .build();
 
         return organizationDTO;
