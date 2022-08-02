@@ -23,8 +23,8 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public ContactDto createContact(ContactDto contactDto) {
         Contact contact = mapContact.mapEntity(contactDto);
-        contactRepository.save(contact);
-        return contactDto;
+        Contact newContact = contactRepository.save(contact);
+        return mapContact.mapDTO(newContact);
     }
 
     @Override

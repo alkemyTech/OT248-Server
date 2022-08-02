@@ -25,6 +25,5 @@ public class ContactDto {
     private String email;
 
     private String message;
-
-    private boolean deleted;
+    
 }
