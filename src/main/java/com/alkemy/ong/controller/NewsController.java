@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/news")
@@ -29,6 +31,19 @@ public class NewsController {
                     .body(newsDto);
         } catch (Exception exception) {
             throw new ApiError(HttpStatus.NOT_FOUND, exception);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteNews(@PathVariable(name = "id") Long id){
+        try {
+            NewsDto news = newsService.findNewsById(id);
+            if(news != null){
+                newsService.deleteById(id);
+            }
+            return new ResponseEntity<>("User deleted", HttpStatus.OK);
+        } catch (Exception e){
+            throw new Error(e);
         }
     }
 }
