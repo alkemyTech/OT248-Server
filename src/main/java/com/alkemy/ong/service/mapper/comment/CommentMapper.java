@@ -5,20 +5,21 @@ import com.alkemy.ong.model.Comment;
 import com.alkemy.ong.model.News;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.repository.NewsRepository;
-import com.alkemy.ong.repository.UsersRepository;
+import com.alkemy.ong.repository.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class CommentMapper {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository usersRepository;
     @Autowired
     private NewsRepository newsRepository;
+
+    public CommentMapper() {
+    }
 
     public CommentDto commentToDto(Comment comment) {
         CommentDto commentDto = new CommentDto();
