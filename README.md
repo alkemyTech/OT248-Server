@@ -1,7 +1,6 @@
 # OT248-Server
 
 Automatically generated users when the application starts: 
-
 Users (ROLE_USER):
 email: user0@ongprueba.com - password: user12345
 email: user1@ongprueba.com - password: user12345
