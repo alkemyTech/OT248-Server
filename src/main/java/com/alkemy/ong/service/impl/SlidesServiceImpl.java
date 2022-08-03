@@ -26,11 +26,7 @@ public class SlidesServiceImpl implements SlidesService {
 
 
     private SlidesDto toDto(Slides slides){
-        return modelMapper.map(slides, SlidesDto.class);
-    }
-
-    private Slides toEntity(SlidesDto slidesDto){
-        return modelMapper.map(slidesDto, Slides.class);
+        return new SlidesDto(slides.getImageUrl(), slides.getPosition());
     }
 
 }

@@ -18,7 +18,10 @@ public class SlidesController {
     @Autowired private SlidesService slidesService;
 
     @GetMapping
-    public ResponseEntity<List<SlidesDto>> getAllSlides(){
-        return new ResponseEntity<>(slidesService.getAllSlides(), HttpStatus.OK);
+    public ResponseEntity<?> getAllSlides(){
+        List<SlidesDto> slidesDtos = slidesService.getAllSlides();
+        return slidesDtos
+                .isEmpty() ? new ResponseEntity<>("no slides yet", HttpStatus.OK)
+                : new ResponseEntity<>(slidesDtos, HttpStatus.OK);
     }
 }
