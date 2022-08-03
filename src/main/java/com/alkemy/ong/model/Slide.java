@@ -5,11 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 @Table(name = "slides")
 public class Slide {

@@ -1,14 +1,12 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.dto.SlidesDto;
-import com.alkemy.ong.model.Slides;
-import com.alkemy.ong.repository.SlidesRepository;
+import com.alkemy.ong.model.Slide;
+import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.AmazonService;
 import com.alkemy.ong.service.SlidesService;
 import com.alkemy.ong.service.mapper.SlidesMapper;
-import java.io.File;
-import java.util.Base64;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
+import com.alkemy.ong.util.Base64ToMultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class SlidesServiceImpl implements SlidesService {
 
     @Autowired
-    private SlidesRepository slidesRepository;
+    private SlideRepository slidesRepository;
 
     @Autowired
     SlidesMapper slidesMapper;
@@ -28,21 +26,19 @@ public class SlidesServiceImpl implements SlidesService {
     @Override
     public SlidesDto createSlides(SlidesDto slidesDto) {
 
-        Slides slides = slidesMapper.slidesDtoToSlides(slidesDto);
+        Slide slides = slidesMapper.slidesDtoToSlides(slidesDto);
 
-        byte[] decodedBytes = Base64.getDecoder().decode(slides.getImageUrl());
-        FileUtils.writeByteArrayToFile(new File(outputFileName), decodedBytes);
-
-        if (slides.getOrder() == null) {
-            slides.setOrder(slidesRepository.lastOrder() + 1);
+        Base64ToMultipartFile decodBase64ToMultipartFile = new Base64ToMultipartFile();
+        MultipartFile urlImage = decodBase64ToMultipartFile.base64ToMultipart(slidesDto.getImageUrl());
+        String fileUrl = amazonService.uploadFile(urlImage);
+                
+        if (slides.getPosition()== null) {
+            slides.setPosition(slidesRepository.lastPosition()+ 1);
         }
+        slides.setImageUrl(fileUrl);
+       Slide slideDB = slidesRepository.save(slides);
 
-        String imageUrl = amazonService.uploadFile(file);
-        slides.setImageUrl(imageUrl);
-
-        Slides slidesDB = slidesRepository.save(slides);
-
-        return slidesMapper.slidesToSlidesDto(slidesDB);
+        return slidesMapper.slidesToSlidesDto(slideDB);
 
     }
 
