@@ -18,7 +18,7 @@ public class SlidesServiceImpl implements SlidesService {
     private SlideRepository slidesRepository;
 
     @Autowired
-    SlidesMapper slidesMapper;
+    private SlidesMapper slidesMapper;
 
     @Autowired
     private AmazonService amazonService;
