@@ -13,6 +13,14 @@ import java.util.Date;
 @Service
 public class UserSeedData {
 
+    String[] names = {"Juan", "Roberto", "Manuel", "Emanuel", "José",
+            "Ernesto", "Cintia", "Elisa", "María", "Josefina",
+            "Florencia", "Aylen", "Walter", "Jesse", "Saul", "Skyler",
+            "Walter Jr", "Maximiliano", "Pablo", "Hector"};
+    String[] lastNames = {"Morales", "Perez", "Gonzales", "Hil", "Paz",
+            "Sabati", "Muñoz", "Machado", "Palacios", "Pilas",
+            "Castelucci", "Mendez", "White", "Pinkman", "Goodman", "White",
+            "White", "Falcone", "Falcone", "Gonzales"};
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -28,23 +36,23 @@ public class UserSeedData {
             if (i < 10) {
                 userRepository.save(
                         Users.builder()
-                                .email("user" + i + "@ongprueba.com")
-                                .password("user12345")
-                                .firstName("user" + i)
-                                .lastName("test")
+                                .email((names[i].toLowerCase() + lastNames[i].toLowerCase() + "@ongprueba.com").replace(" ", ""))
+                                .password(names[i].trim() + "12345")
+                                .firstName(names[i])
+                                .lastName(lastNames[i])
                                 .role(roleRepository.findByName("ROLE_USER"))
-                                .photo("image.jpg")
+                                .photo(names[i] + ".jpg")
                                 .createdOnTimestamp(new Date())
                                 .build());
             } else {
                 userRepository.save(
                         Users.builder()
-                                .email("admin" + i + "@ongprueba.com")
-                                .password("admin12345")
-                                .firstName("admin" + i)
-                                .lastName("test")
+                                .email((names[i].toLowerCase() + lastNames[i].toLowerCase() + "@ongprueba.com").replace(" ", ""))
+                                .password(names[i].trim() + "12345")
+                                .firstName(names[i])
+                                .lastName(lastNames[i])
                                 .role(roleRepository.findByName("ROLE_ADMIN"))
-                                .photo("image.jpg")
+                                .photo(names[i] + ".jpg")
                                 .createdOnTimestamp(new Date())
                                 .build());
             }
