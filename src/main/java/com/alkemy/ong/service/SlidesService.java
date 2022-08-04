@@ -7,5 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface SlidesService {
     
-    public SlidesDto createSlides(SlidesDto slidesDto);
+    public SlidesDto createSlides(SlidesDto slidesDto) throws Exception;
 }

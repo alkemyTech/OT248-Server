@@ -18,8 +18,14 @@ public class SlidesController {
     private SlidesService slidesService;
 
     @PostMapping()
-    public ResponseEntity<?> createSlide(@RequestBody SlidesDto slidesDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(slidesService.createSlides(slidesDto));
+    public ResponseEntity<?> createSlide(@RequestBody SlidesDto slidesDto){
+        
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(slidesService.createSlides(slidesDto));
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
 
     }
 }

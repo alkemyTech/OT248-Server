@@ -24,21 +24,25 @@ public class SlidesServiceImpl implements SlidesService {
     private AmazonService amazonService;
 
     @Override
-    public SlidesDto createSlides(SlidesDto slidesDto) {
+    public SlidesDto createSlides(SlidesDto slidesDto) throws Exception {
+        try {
+            Slide slides = slidesMapper.slidesDtoToSlides(slidesDto);
 
-        Slide slides = slidesMapper.slidesDtoToSlides(slidesDto);
+            Base64ToMultipartFile decodBase64ToMultipartFile = new Base64ToMultipartFile();
+            MultipartFile urlImage = decodBase64ToMultipartFile.base64ToMultipart(slidesDto.getImageUrl());
+            String fileUrl = amazonService.uploadFile(urlImage);
 
-        Base64ToMultipartFile decodBase64ToMultipartFile = new Base64ToMultipartFile();
-        MultipartFile urlImage = decodBase64ToMultipartFile.base64ToMultipart(slidesDto.getImageUrl());
-        String fileUrl = amazonService.uploadFile(urlImage);
-                
-        if (slides.getPosition()== null) {
-            slides.setPosition(slidesRepository.lastPosition()+ 1);
+            if (slides.getPosition() == null) {
+                slides.setPosition(slidesRepository.lastPosition() + 1);
+            }
+            slides.setImageUrl(fileUrl);
+            Slide slideDB = slidesRepository.save(slides);
+
+            return slidesMapper.slidesToSlidesDto(slideDB);
+
+        } catch (Exception e) {
+         throw new Exception("a problem occurred creating a slide");
         }
-        slides.setImageUrl(fileUrl);
-       Slide slideDB = slidesRepository.save(slides);
-
-        return slidesMapper.slidesToSlidesDto(slideDB);
 
     }
 

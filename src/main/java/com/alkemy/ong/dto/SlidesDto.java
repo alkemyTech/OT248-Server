@@ -10,8 +10,7 @@ public class SlidesDto {
 
     private String imageUrl;
 
-    private String text;
-
+    
     private Integer order;
 
     
