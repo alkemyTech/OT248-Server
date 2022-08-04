@@ -2,13 +2,16 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.exception.ApiError;
+import com.alkemy.ong.model.Contact;
 import com.alkemy.ong.service.NewsService;
+import com.amazonaws.services.kms.model.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.Locale;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -17,7 +20,11 @@ import java.util.Map;
 @RequestMapping("/news")
 public class NewsController {
 
-    @Autowired private NewsService newsService;
+    @Autowired
+    private NewsService newsService;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Autowired
     private MessageSource messageSource;
@@ -39,6 +46,17 @@ public class NewsController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<NewsDto> updateNews (@Valid @PathVariable(value = "id") Long id, @RequestBody NewsDto newsUpdate ) {
+        try {
+            NewsDto newsDto = newsService.findNewsById(id);
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        NewsDto newsDtoResponse = newsService.updateNews(newsUpdate);
+        return ResponseEntity.status(HttpStatus.OK).body(newsDtoResponse);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteNews(@PathVariable(name = "id") Long id) {
         try {
@@ -48,4 +66,5 @@ public class NewsController {
         }
         return new ResponseEntity<>(messageSource.getMessage("news.deleted.message", null, Locale.US), HttpStatus.OK);
     }
+
 }

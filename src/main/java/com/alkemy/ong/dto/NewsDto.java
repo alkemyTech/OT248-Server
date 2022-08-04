@@ -24,7 +24,7 @@ public class NewsDto {
 
     private String image;
 
-    private Category categoryId;
+    private Long categoryId;
 
     private Date createDate;
 
