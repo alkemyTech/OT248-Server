@@ -6,4 +6,5 @@ public interface NewsService {
 
     public NewsDto createNews(NewsDto newsDto);
     NewsDto findNewsById(Long id);
+    NewsDto updateNews(NewsDto newsDto);
 }
