@@ -37,7 +37,6 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    
     @PostMapping()
     public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryDto categoryDto,
             BindingResult result) {

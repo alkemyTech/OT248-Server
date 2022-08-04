@@ -8,9 +8,7 @@ public interface CategoryService {
 
     public CategoryDto createCategory(CategoryDto categoryDto) throws Exception;
 
-    
     public CategoryDto findById(Long id);
-
 
     List<String> getCategoryNames() throws EmptyListException;
 
