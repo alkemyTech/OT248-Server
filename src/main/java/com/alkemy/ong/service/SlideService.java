@@ -9,6 +9,6 @@ public interface SlideService {
 
     SlideResponseDTO getById(Long id);
 
-    public List<SlidesDto> getAllSlides();
+    List<SlidesDto> getAllSlides();
 
 }
