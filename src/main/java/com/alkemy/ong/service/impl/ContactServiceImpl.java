@@ -14,6 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
 @Service
 public class ContactServiceImpl implements ContactService {
 
@@ -43,4 +47,13 @@ public class ContactServiceImpl implements ContactService {
         }
 
     }
+
+    @Override
+    public List<ContactDto> searchAllContacts() {
+        return contactRepository.findAll().stream()
+                .map(x->  mapContact.mapDTO(x))
+                .collect(toList());
+    }
+
+
 }

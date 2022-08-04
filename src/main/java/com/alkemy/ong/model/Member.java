@@ -15,7 +15,7 @@ import java.util.Date;
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE members SET softDelete = true WHERE id=?")
-@Where(clause = "softDelete=false")
+@Where(clause = "soft_delete=false")
 @Entity
 @Table(name = "members")
 @Builder

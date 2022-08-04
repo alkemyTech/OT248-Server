@@ -1,5 +1,6 @@
 package com.alkemy.ong.dto;
 
+
 import com.alkemy.ong.model.Organization;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,5 @@ public class SlidesDto {
     private Integer order;
 
     
+
 }
