@@ -10,12 +10,7 @@ import lombok.Builder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.Where;
-
 import java.util.Date;
-
-
-
-
 
 @Entity
 @Data
