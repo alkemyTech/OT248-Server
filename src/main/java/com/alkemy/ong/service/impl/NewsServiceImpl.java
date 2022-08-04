@@ -12,7 +12,12 @@ import com.alkemy.ong.service.NewsService;
 import com.alkemy.ong.service.mapper.NewsMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.Locale;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -28,6 +33,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsMapper newsMapper;
+
+    @Autowired
+    private MessageSource messageSource;
 
 
     @Override
@@ -48,6 +56,17 @@ public class NewsServiceImpl implements NewsService {
         return newsMapper
                 .newsEntityToDTO(newsRepository
                         .save(news));
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id){
+        News news = newsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("News "
+                        .concat(messageSource.getMessage("not.found", null, Locale.US))));
+        if(!news.isDeleted()){
+            newsRepository.deleteById(id);
+        }
     }
 
     private NewsDto toDto(News news){
