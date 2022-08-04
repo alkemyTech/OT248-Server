@@ -25,7 +25,7 @@ public class MemberController {
     @GetMapping()
     public ResponseEntity<?> getAllMembers(){
         List<MemberDto> dtoList = memberServiceImpl.getAll();
-        if(dtoList.isEmpty() || dtoList == null) {
+        if(dtoList == null  || dtoList.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(messageSource.getMessage( "error.memberList.empty", null, Locale.US));
         }
