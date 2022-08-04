@@ -48,3 +48,30 @@ Users (ROLE_ADMIN):
 10: email: admin19@ongprueba.com - password: user12345
 
 ONG-Java
+
+
+### ROLE_USER
+
+- firstname : "juan" - lastname: "perez" - email: "juan@mail.com" - password: "1234"
+- firstname : "pepe" - lastname: "jults" - email: "pepe@mail.com" - password: "1234"
+- firstname : "pedro" - lastname: "lopez" - email: "pedro@mail.com" - password: "1234"
+- firstname : "ernesto" - lastname: "ford" - email: "ernesto@mail.com" - password: "1234"
+- firstname : "john" - lastname: "sanchez" - email: "john@mail.com" - password: "1234"
+- firstname : "samuel" - lastname: "perez" - email: "samuel@mail.com" - password: "1234"
+- firstname : "ivan" - lastname: "andredde" - email: "ivan@mail.com" - password: "1234"
+- firstname : "jose" - lastname: "martinez" - email: "jose@mail.com" - password: "1234"
+- firstname : "oscar" - lastname: "bravo" - email: "oscar@mail.com" - password: "1234"
+- firstname : "estavan" - lastname: "volarde" - email: "estavan@mail.com" - password: "1234"
+
+### ROLE_ADMIN
+
+- firstname : "peet" - lastname: "landino" - email: "peet@mail.com" - password: "1234"
+- firstname : "mario" - lastname: "acosta" - email: "mario@mail.com" - password: "1234"
+- firstname : "bruno" - lastname: "piñero" - email: "bruno@mail.com" - password: "1234"
+- firstname : "rick" - lastname: "goya" - email: "rick@mail.com" - password: "1234"
+- firstname : "mary" - lastname: "rincon" - email: "mary@mail.com" - password: "1234"
+- firstname : "pepa" - lastname: "avila" - email: "pepa@mail.com" - password: "1234"
+- firstname : "vilma" - lastname: "nuñes" - email: "vilma@mail.com" - password: "1234"
+- firstname : "eddie" - lastname: "garcia" - email: "eddie@mail.com" - password: "1234"
+- firstname : "zully" - lastname: "lubo" - email: "zully@mail.com" - password: "1234"
+- firstname : "briget" - lastname: "lisboa" - email: "briget@mail.com" - password: "1234"
