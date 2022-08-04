@@ -2,7 +2,6 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.service.MailService;
 import com.alkemy.ong.util.DynamicTemplatePersonalization;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sendgrid.*;
 import com.alkemy.ong.util.Constants;
 import org.slf4j.Logger;
@@ -11,11 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+
 @Service
 public class MailServiceImpl implements MailService {
 
@@ -67,6 +63,24 @@ public class MailServiceImpl implements MailService {
         Response response = sendGrid.api(request);
         logger.info(response.getBody());
         return response.getBody();
+    }
+
+    @Override
+    public String sendEmailCreatedContact(String email) throws IOException {
+       Email from = new Email(Constants.SEND_GRID_SENDER_EMAIL);
+        String subject = Constants.SEND_GRID_WELCOME;
+        Email to = new Email(email);
+        Mail mail = new Mail();
+        personalization.clearData();
+        personalization.addTo(to);
+        mail.setFrom(from);
+        mail.setSubject(subject);
+        personalization.addDynamicTemplateData("title", Constants.SEND_GRID_TEMPLATE_CONTACT_TITLE);
+        personalization.addDynamicTemplateData("text", Constants.SEND_GRID_TEMPLATE_MESSAGE_CONTACT);
+        mail.addPersonalization(personalization);
+        mail.setTemplateId(dynamicTemplateId);
+        
+        return sendGivenMail(mail);
     }
 
 }

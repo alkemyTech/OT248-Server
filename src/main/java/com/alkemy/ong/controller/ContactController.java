@@ -3,6 +3,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.ContactDto;
 import com.alkemy.ong.service.ContactService;
+import java.io.IOException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class ContactController {
     private ContactService contactService;
     
     @PostMapping()
-    public ResponseEntity<?> create(@Valid @RequestBody ContactDto contactDto, BindingResult result){
+    public ResponseEntity<?> create(@Valid @RequestBody ContactDto contactDto, BindingResult result) throws IOException{
         
         if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
