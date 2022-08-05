@@ -27,6 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private JwtRequestFilter jwtRequestFilter;
 
     private static final String ROLE_ADMIN = "ADMIN";
+    private static final String ROLE_USER = "USER";
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -50,13 +51,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/auth/*").permitAll()
 
-                ////////////////////////////////////
-                //          Admin Routes          //
-                ////////////////////////////////////
+                ////////////////////
+                //  Admin Routes  //
+                ///////////////////
 
-                .antMatchers(HttpMethod.GET, "/users").hasRole("ROLE_ADMIN")
-                .antMatchers(HttpMethod.POST, "/activities").hasRole("ROLE_ADMIN")
-                .antMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+
+                .antMatchers(HttpMethod.GET, "/users").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/slides/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.POST, "/activities").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/users").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/categories/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/news/detail").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.POST, "/categories").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/categories").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.POST, "/testimonials").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.POST, "/contacts").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ROLE_ADMIN)
+
+
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()

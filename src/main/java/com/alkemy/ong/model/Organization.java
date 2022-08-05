@@ -1,9 +1,6 @@
 package com.alkemy.ong.model;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,7 +17,9 @@ import java.util.Date;
 @Where(clause = "soft_delete = false")
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Table(name = "organizations")
+@Builder
 public class Organization {
 
     @Id
@@ -53,6 +52,15 @@ public class Organization {
 
     @Column(name = "about_us_text", columnDefinition = "TEXT")
     private String aboutUsText;
+
+    @Column(name = "url_facebook")
+    private String urlFacebook;
+
+    @Column(name = "url_linkedin")
+    private String urlLinkedin;
+
+    @Column(name = "url_instagram")
+    private String urlInstagram;
 
     @Column(nullable = false, updatable = false, name = "creation_timestamp")
     @CreationTimestamp

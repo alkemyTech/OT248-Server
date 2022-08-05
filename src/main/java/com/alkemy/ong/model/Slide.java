@@ -11,7 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Builder
-public class Slides {
+@Table(name = "slides")
+public class Slide {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +21,11 @@ public class Slides {
     private String imageUrl;
     @Column
     private String text;
-    @Column(name = "position")
-    private Integer order;
+    @Column
+    private Integer position;
     @ManyToOne
     @JoinColumn(name = "organization_id")
-    private Organization organizationId;
+    private Organization organization;
 
 
 

@@ -1,10 +1,8 @@
 package com.alkemy.ong.dto;
 
 import com.alkemy.ong.model.Category;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
@@ -12,6 +10,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class NewsDto {
 
 
@@ -25,7 +24,7 @@ public class NewsDto {
 
     private String image;
 
-    private Category categoryId;
+    private Long categoryId;
 
     private Date createDate;
 

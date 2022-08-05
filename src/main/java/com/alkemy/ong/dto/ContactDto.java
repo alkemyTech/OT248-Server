@@ -1,15 +1,16 @@
+
 package com.alkemy.ong.dto;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
 import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ContactDto {
 
     private Long idContact;
@@ -24,6 +25,5 @@ public class ContactDto {
     private String email;
 
     private String message;
-
-    private boolean deleteAt;
+    
 }
