@@ -13,7 +13,7 @@ public class CategoryDto {
     private Long categoryId;
 
     @NotNull(message = "Name may not be null")
-//    @Pattern(regexp = "[a-bA-B0-9]", message = "This field only accepts letters and numbers.")
+    @Pattern(regexp = "[a-zA-Z0-9]", message = "This field only accepts letters and numbers.")
     private String name;
 
     private String description;
