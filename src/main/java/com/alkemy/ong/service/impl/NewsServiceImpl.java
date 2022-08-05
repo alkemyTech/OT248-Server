@@ -20,7 +20,6 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Locale;
 
 import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 import java.util.Locale;
 import java.util.Optional;
 

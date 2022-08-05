@@ -15,7 +15,7 @@ public class CategoryMapper {
     public CategoryDto categoryToCategoryDTO(Category category){
         return CategoryDto
                 .builder()
-                .categoyId(category.getCategoyId())
+                .categoryId(category.getId())
                 .name(category.getName())
                 .image(category.getImage())
                 .description(category.getDescription())
@@ -27,7 +27,7 @@ public class CategoryMapper {
     public Category categoryDtoToCategory(CategoryDto categoryDto){
         return Category
                 .builder()
-                .categoyId(categoryDto.getCategoyId())
+                .id(categoryDto.getCategoryId())
                 .name(categoryDto.getName())
                 .image(categoryDto.getImage())
                 .description(categoryDto.getDescription())

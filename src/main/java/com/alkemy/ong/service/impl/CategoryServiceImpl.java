@@ -66,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService {
         Optional<Category> res = categoryRepository.findById(id);
         if (res.isPresent()) {
             Category category = res.get();
-            return categoryMapper.CategoryToCategoryDTO(category);
+            return categoryMapper.categoryToCategoryDTO(category);
             
         } else {
            throw new EntityNotFoundException(messageSource.getMessage("category.notFound", null, Locale.US));
