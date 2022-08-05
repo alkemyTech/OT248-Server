@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ContactService {
 
-    public ContactDto createContact(ContactDto contactDto);
+    ContactDto createContact(ContactDto contactDto);
 
     List<ContactDto> searchAllContacts();
+
 }

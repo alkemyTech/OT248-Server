@@ -26,8 +26,6 @@ public class NewsController {
     @Autowired
     private MessageSource messageSource;
 
-    @Autowired
-    private MessageSource messageSource;
 
     @PostMapping
     public ResponseEntity<NewsDto> createNews(@Valid @RequestBody NewsDto newsDto){

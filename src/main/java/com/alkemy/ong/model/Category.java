@@ -32,8 +32,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_categories")
-    private Long categoyId;
+    private Long id;
 
     @NotNull(message = "Name may not be null")
     private String name;
@@ -46,7 +45,7 @@ public class Category {
     @NotNull(message = "Name may not be null")
     private String image;
 
-    @Column(name = "cration_date")
+    @Column(name = "creation_date")
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;

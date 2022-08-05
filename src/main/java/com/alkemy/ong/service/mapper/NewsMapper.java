@@ -24,7 +24,7 @@ public class NewsMapper {
                 .content(news.getContent())
                 .name(news.getName())
                 .image(news.getImage())
-                .categoryId(news.getCategoryId().getCategoyId())
+                .categoryId(news.getCategoryId().getId())
                 .createDate(news.getCreateDate())
                 .updateDate(news.getUpdateDate())
                 .build();
@@ -37,7 +37,7 @@ public class NewsMapper {
                 .content(newsDto.getContent())
                 .name(newsDto.getName())
                 .image(newsDto.getImage())
-                .categoryId(categoryMapper.CategoryDtoToCategory(
+                .categoryId(categoryMapper.categoryDtoToCategory(
                         categoryService.findById(newsDto.getCategoryId())))
                 .createDate(newsDto.getCreateDate())
                 .updateDate(new Date())
