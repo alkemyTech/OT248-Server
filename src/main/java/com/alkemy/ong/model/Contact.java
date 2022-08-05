@@ -12,8 +12,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@SQLDelete(sql = "UPDATE contacts SET delete_at = true WHERE id_contact =?")
-@Where(clause = "delete_at = false")
+@SQLDelete(sql = "UPDATE contacts SET deleted = true WHERE id_contact =?")
+@Where(clause = "deleted = false")
 @Getter
 @Setter
 @ToString
@@ -42,6 +42,6 @@ public class Contact {
     @Column(name = "message")
     private String message;
 
-    @Column(name = "delete_at")
-    private boolean deleteAt;
+    @Column(name = "deleted")
+    private boolean deleted;
 }

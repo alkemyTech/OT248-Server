@@ -1,8 +1,6 @@
 package com.alkemy.ong.exception;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
@@ -19,4 +17,5 @@ public class MessageResponse {
         this.message = e.getMessage();
         this.uri = request.getRequestURI();
     }
+
 }

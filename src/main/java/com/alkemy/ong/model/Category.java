@@ -57,4 +57,6 @@ public class Category {
 
     @Column
     private boolean deleted = Boolean.FALSE;
+
+
 }
