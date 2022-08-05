@@ -13,6 +13,10 @@ public interface UserService {
 
     Users applyPatchToUser(long id, UserDto patch);
 
+    public UserResponseDTO getUserDataByToken(String token);    
+
     void deleteUser (Long id) throws Exception;
+
+
 
 }
