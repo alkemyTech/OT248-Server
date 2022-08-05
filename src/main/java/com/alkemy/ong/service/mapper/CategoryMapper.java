@@ -2,15 +2,18 @@
 package com.alkemy.ong.service.mapper;
 
 import com.alkemy.ong.dto.CategoryDto;
+import com.alkemy.ong.dto.response.CategoryResponseDTO;
 import com.alkemy.ong.model.Category;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Component
 public class CategoryMapper {
     
     
-    public CategoryDto CategoryToCategoryDTO (Category category){
-        CategoryDto categoryDto = CategoryDto
+    public CategoryDto categoryToCategoryDTO(Category category){
+        return CategoryDto
                 .builder()
                 .categoyId(category.getCategoyId())
                 .name(category.getName())
@@ -19,20 +22,39 @@ public class CategoryMapper {
                 .createDate(category.getCreateDate())
                 .updateDate(category.getUpdateDate())
                 .build();
-
-        return categoryDto;
     }
-    public Category CategoryDtoToCategory (CategoryDto categoryDto){
-        Category category = Category
+
+    public Category categoryDtoToCategory(CategoryDto categoryDto){
+        return Category
                 .builder()
                 .categoyId(categoryDto.getCategoyId())
                 .name(categoryDto.getName())
                 .image(categoryDto.getImage())
                 .description(categoryDto.getDescription())
-                .createDate(categoryDto.getCreateDate())
-                .updateDate(categoryDto.getUpdateDate())
+                .updateDate(new Date())
                 .build();
-
-        return category;
     }
+
+    public CategoryResponseDTO entityToResponseDTO (Category category){
+        return CategoryResponseDTO
+                .builder()
+                .id(category.getId())
+                .name(category.getName())
+                .image(category.getImage())
+                .description(category.getDescription())
+                .updateDate(category.getUpdateDate())
+                .build();
+    }
+
+    public Category updateCategory (Category category, CategoryDto newsFields){
+
+        return Category.builder()
+                .id(category.getId())
+                .name(newsFields.getName())
+                .image(newsFields.getImage())
+                .description(newsFields.getDescription())
+                .updateDate(new Date())
+                .build();
+    }
+
 }

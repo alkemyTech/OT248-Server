@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface MemberService {
 
-    public MemberDto create(MemberDto memberDto);
+    MemberDto create(MemberDto memberDto);
+    
     List<MemberDto> getAll();
 
 }
