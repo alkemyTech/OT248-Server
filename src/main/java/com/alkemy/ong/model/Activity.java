@@ -1,6 +1,7 @@
 package com.alkemy.ong.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,6 +19,7 @@ import java.util.Date;
 @Table(name = "activities")
 @SQLDelete(sql = "UPDATE activities SET deleted = true WHERE id=?")
 @Where(clause = "deleted = false")
+@Builder
 public class Activity {
 
     @Id
