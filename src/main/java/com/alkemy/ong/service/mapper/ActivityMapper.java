@@ -18,7 +18,7 @@ public class ActivityMapper {
                 .content(request.getContent())
                 .createAt(entityFromDB.getCreateAt())
                 .updateAt(new Date())
-                .deleted(entityFromDB.getDeleted())
+                .deleted(entityFromDB.isDeleted())
                 .build();
     }
 
@@ -32,5 +32,14 @@ public class ActivityMapper {
                 .updateDate(activity.getUpdateAt())
                 .build();
 
+    }
+
+    public Activity requestDTOToEntity (ActivityRequestDTO activityRequestDTO){
+        return Activity.builder()
+                .name(activityRequestDTO.name)
+                .content(activityRequestDTO.content)
+                .image(activityRequestDTO.image)
+                .createAt(new Date())
+                .build();
     }
 }

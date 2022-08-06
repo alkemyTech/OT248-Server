@@ -3,6 +3,7 @@ package com.alkemy.ong.controller;
 import com.alkemy.ong.dto.ActivityRequestDTO;
 import com.alkemy.ong.dto.response.ActivityResponseDTO;
 import com.alkemy.ong.exception.ApiError;
+import com.alkemy.ong.exception.NameAlreadyExists;
 import com.alkemy.ong.model.Activity;
 import com.alkemy.ong.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,9 @@ public class ActivityController {
     private ActivityService activityService;
 
     @PostMapping
-    public ResponseEntity<?> registerActivities(@Valid @RequestBody ActivityRequestDTO activityRequestDTO) {
-        try {
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(activityService.save(activityRequestDTO));
-        } catch (Exception exception) {
-            throw new ApiError(HttpStatus.BAD_REQUEST, exception);
-        }
+    public ResponseEntity<ActivityResponseDTO> create (@Valid @RequestBody ActivityRequestDTO activityRequestDTO) throws NameAlreadyExists {
+        ActivityResponseDTO activityCreated = activityService.save(activityRequestDTO);
+        return ResponseEntity.ok().body(activityCreated);
     }
 
     @PutMapping("/{id}")
