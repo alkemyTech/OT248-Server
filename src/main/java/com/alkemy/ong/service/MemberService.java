@@ -9,5 +9,6 @@ public interface MemberService {
     MemberDto create(MemberDto memberDto);
     
     List<MemberDto> getAll();
+    public void removeMember(Long id);
 
 }
