@@ -1,7 +1,6 @@
 package com.alkemy.ong.dto;
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.validation.constraints.*;
 
 @Getter

@@ -2,20 +2,16 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.service.MailService;
 import com.alkemy.ong.util.DynamicTemplatePersonalization;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sendgrid.*;
 import com.alkemy.ong.util.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+
 @Service
 public class MailServiceImpl implements MailService {
 
