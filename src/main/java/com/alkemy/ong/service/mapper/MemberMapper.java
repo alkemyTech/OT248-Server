@@ -9,6 +9,7 @@ public class MemberMapper {
 
     public MemberDto MemberToDto(Member member){
         return MemberDto.builder()
+                .id(member.getId())
                 .name(member.getName())
                 .facebookUrl(member.getFacebookUrl())
                 .instagramUrl(member.getInstagramUrl())
@@ -20,6 +21,7 @@ public class MemberMapper {
 
     public Member DtoToEntity(MemberDto memberDto){
         return Member.builder()
+                .id(memberDto.getId())
                 .name(memberDto.getName())
                 .facebookUrl(memberDto.getFacebookUrl())
                 .instagramUrl(memberDto.getInstagramUrl())

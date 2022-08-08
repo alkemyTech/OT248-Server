@@ -10,4 +10,8 @@ public interface MemberService {
     
     List<MemberDto> getAll();
 
+    MemberDto findMemberById(Long id);
+
+
+    MemberDto updateMember(MemberDto memberUpdate, Long id);
 }
