@@ -40,7 +40,7 @@ public class MemberController {
         }
     }
 
-    @PostMapping("{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> removeMember(@PathVariable(value = "id") Long id) {
         try {
             memberService.removeMember(id);
