@@ -1,5 +1,6 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.dto.SlideRequestDTO;
 import com.alkemy.ong.dto.SlidesDto;
 import com.alkemy.ong.dto.response.SlideResponseDTO;
 
@@ -10,5 +11,7 @@ public interface SlideService {
     SlideResponseDTO getById(Long id);
 
     List<SlidesDto> getAllSlides();
+
+    SlideResponseDTO update (Long id, SlideRequestDTO requestDTO);
 
 }

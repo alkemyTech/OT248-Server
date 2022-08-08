@@ -19,9 +19,9 @@ public class Slide {
     private Long id;
     @Column(name = "image_url")
     private String imageUrl;
-    @Column
+    @Column(nullable = false)
     private String text;
-    @Column
+    @Column(nullable = false)
     private Integer position;
     @ManyToOne
     @JoinColumn(name = "organization_id")

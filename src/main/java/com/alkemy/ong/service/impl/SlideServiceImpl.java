@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.dto.SlideRequestDTO;
 import com.alkemy.ong.dto.SlidesDto;
 import com.alkemy.ong.dto.response.SlideResponseDTO;
 import com.alkemy.ong.model.Slide;
@@ -38,6 +39,18 @@ public class SlideServiceImpl implements SlideService {
     public List<SlidesDto> getAllSlides() {
         List<Slide> slides = slideRepository.findAll();
         return slides.stream().map(slide -> toDto(slide)).collect(Collectors.toList());
+    }
+
+    @Override
+    public SlideResponseDTO update(Long id, SlideRequestDTO requestDTO) {
+        Slide slide = slideRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(messageSource
+                        .getMessage("slide.not.found", null, Locale.US)));
+
+        slide = slideMapper.updateSlide(requestDTO, slide);
+        Slide slideUpdated = slideRepository.save(slide);
+
+        return slideMapper.entityToDTO(slideUpdated);
     }
 
 
