@@ -11,4 +11,6 @@ public interface SlideService {
 
     List<SlidesDto> getAllSlides();
 
+    void deleteById(Long id);
+
 }
