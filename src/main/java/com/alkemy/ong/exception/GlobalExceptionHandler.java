@@ -1,5 +1,6 @@
 package com.alkemy.ong.exception;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 import com.amazonaws.services.kms.model.AlreadyExistsException;
@@ -49,6 +50,13 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public MessageResponse handleAlreadyExists (Exception e, HttpServletRequest request) {
         return new MessageResponse(LocalDateTime.now(), e, request);
+    }
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(IOException.class)
+    @ResponseBody
+    public MessageResponse mailNotFound (Exception e, HttpServletRequest request){
+        return new MessageResponse (LocalDateTime.now(), e, request);
+
     }
 
 }

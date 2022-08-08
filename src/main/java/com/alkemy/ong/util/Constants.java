@@ -9,5 +9,7 @@ public class Constants {
     public static final String SEND_GRID_MESSAGE = "Welcome to the API with Spring Boot by Alkymers Java";
     public static final String SEND_GRID_TEMPLATE_TITLE = "Bienvenido a Somos Mas!";
     public static final String SEND_GRID_TEMPLATE_MESSAGE = "Registro exitoso!";
+    public static final String SEND_GRID_TEMPLATE_CONTACT_TITLE = "Contact registered successfully!";
+    public static final String SEND_GRID_TEMPLATE_MESSAGE_CONTACT = "Thank you for contacting us";
 
 }
