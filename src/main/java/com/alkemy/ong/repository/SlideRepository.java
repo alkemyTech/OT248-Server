@@ -10,7 +10,7 @@ public interface SlideRepository extends JpaRepository<Slide, Long> {
 
 
     
-    @Query("SELECT MAX(s.position) FROM Slide")
+    @Query("SELECT MAX(s.position) FROM Slide s")
     public Integer lastPosition();
 
 }
