@@ -12,5 +12,4 @@ public interface ContactService {
 
     List<ContactDto> searchAllContacts();
 
-
 }
