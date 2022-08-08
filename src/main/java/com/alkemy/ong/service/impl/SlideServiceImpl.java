@@ -40,6 +40,14 @@ public class SlideServiceImpl implements SlideService {
         return slides.stream().map(slide -> toDto(slide)).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteById(Long id) {
+        Slide slide = slideRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Slide ".concat(messageSource.getMessage("not.found", null, Locale.US))));
+        slideRepository.delete(slide);
+    }
+
 
     private SlidesDto toDto(Slide slides){
         return new SlidesDto(slides.getImageUrl(), slides.getPosition());
