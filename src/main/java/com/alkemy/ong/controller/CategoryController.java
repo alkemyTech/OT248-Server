@@ -1,22 +1,16 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.CategoryDto;
-
-import com.alkemy.ong.model.Category;
-import com.alkemy.ong.service.CategoryService;
-
+import com.alkemy.ong.dto.response.CategoryResponseDTO;
 import com.alkemy.ong.exception.EmptyListException;
 import com.alkemy.ong.service.CategoryService;
 
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +31,6 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    
     @PostMapping()
     public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryDto categoryDto,
             BindingResult result) {
@@ -63,6 +56,12 @@ public class CategoryController {
     public ResponseEntity<List<String>> getAllNames() throws EmptyListException {
         List<String> categoryNames = categoryService.getCategoryNames();
         return ResponseEntity.ok().body(categoryNames);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponseDTO> update (@PathVariable Long id, @Valid @RequestBody CategoryDto categoryDto)  {
+        CategoryResponseDTO response = categoryService.update(id, categoryDto);
+        return ResponseEntity.ok().body(response);
     }
 
 

@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.auth.utils.JwUtils;
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.dto.response.UserResponseDTO;
 import com.alkemy.ong.model.Users;
@@ -24,6 +25,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UsersMapper usersMapper;
 
+    @Autowired private JwUtils jwUtils;
+
     public List<UserResponseDTO> getAll() {
         return usersMapper.userEntityListToDTOList(userRepository.findAll());
     }
@@ -44,6 +47,14 @@ public class UserServiceImpl implements UserService {
        }
 
     @Override
+
+    public UserResponseDTO getUserDataByToken(String token) {
+        String userName = jwUtils.extractUsername(token.substring(7));
+        Users users = userRepository.findByFirstName(userName);
+        return usersMapper.userEntityToDTO(users);
+    }
+
+
     public void deleteUser(Long id) throws Exception {
         Optional<Users> response = userRepository.findById(id);
         if (response.isPresent()) {
@@ -53,7 +64,6 @@ public class UserServiceImpl implements UserService {
             throw new Exception("a user with that id was not found");
         }
     }
-
 
 }
 

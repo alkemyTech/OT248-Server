@@ -10,13 +10,14 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 
 @Entity
-@SQLDelete(sql = "UPDATE contacts SET delete_at = true WHERE id_contact =?")
-@Where(clause = "delete_at = false")
+@SQLDelete(sql = "UPDATE contacts SET deleted = true WHERE id_contact =?")
+@Where(clause = "deleted = false")
 @Getter
 @Setter
-@ToString
+@Data
 @RequiredArgsConstructor
 @Table(name = "contacts")
 public class Contact {
@@ -42,6 +43,6 @@ public class Contact {
     @Column(name = "message")
     private String message;
 
-    @Column(name = "delete_at")
-    private boolean deleteAt;
+    @Column(name = "deleted")
+    private boolean deleted;
 }

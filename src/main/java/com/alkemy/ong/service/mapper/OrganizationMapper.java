@@ -11,7 +11,7 @@ import java.util.Date;
 public class OrganizationMapper {
 
     public OrganizationDto OrganizationEntityToDTO (Organization organization){
-        OrganizationDto organizationDTO = OrganizationDto
+        return OrganizationDto
                 .builder()
                 .name(organization.getEmail())
                 .image(organization.getImage())
@@ -21,8 +21,6 @@ public class OrganizationMapper {
                 .urlLinkedin(organization.getUrlLinkedin())
                 .urlInstagram(organization.getUrlInstagram())
                 .build();
-
-        return organizationDTO;
     }
 
     public OrganizationUpdateDTO organizationEntityToOrganizationUpdateDTO (Organization organization){

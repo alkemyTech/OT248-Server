@@ -60,4 +60,13 @@ public class Users {
 
     @Column(name = "deleted")
     private boolean deleted = Boolean.FALSE;
+
+    public Users(String firstName, String lastName, String email, String password, String photo, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.photo = photo;
+        this.role = role;
+    }
 }

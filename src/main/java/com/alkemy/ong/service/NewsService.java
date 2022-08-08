@@ -4,6 +4,8 @@ import com.alkemy.ong.dto.NewsDto;
 
 public interface NewsService {
 
-    public NewsDto createNews(NewsDto newsDto);
+    NewsDto createNews(NewsDto newsDto);
     NewsDto findNewsById(Long id);
+    NewsDto updateNews(NewsDto newsDto);
+    void deleteById(Long id);
 }

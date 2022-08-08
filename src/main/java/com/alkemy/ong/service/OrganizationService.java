@@ -4,7 +4,7 @@ import com.alkemy.ong.dto.OrganizationUpdateDTO;
 
 public interface OrganizationService {
 
-    public OrganizationDto getOrganizationPublic();
+    OrganizationDto getOrganizationPublic();
 
     OrganizationUpdateDTO updateOrganization(OrganizationUpdateDTO organizationUpdateDTO);
 

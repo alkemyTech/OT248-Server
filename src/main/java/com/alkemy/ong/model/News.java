@@ -37,7 +37,7 @@ public class News {
     @Column
     private String image;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "category_id")
     private Category categoryId;
 
