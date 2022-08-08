@@ -7,7 +7,9 @@ import com.alkemy.ong.service.AmazonService;
 import com.alkemy.ong.service.SlidesService;
 import com.alkemy.ong.service.mapper.SlidesMapper;
 import com.alkemy.ong.util.Base64ToMultipartFile;
+import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +24,9 @@ public class SlidesServiceImpl implements SlidesService {
 
     @Autowired
     private AmazonService amazonService;
+    
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     public SlidesDto createSlides(SlidesDto slidesDto) throws Exception {
@@ -41,7 +46,7 @@ public class SlidesServiceImpl implements SlidesService {
             return slidesMapper.slidesToSlidesDto(slideDB);
 
         } catch (Exception e) {
-         throw new Exception("a problem occurred creating a slide");
+         throw new Exception(messageSource.getMessage("error.created.slide", null, Locale.US));
         }
 
     }
