@@ -13,4 +13,6 @@ public interface SlideService {
     
     SlidesDto createSlides(SlidesDto slidesDto) throws Exception;
 
+    void deleteById(Long id);
+
 }
