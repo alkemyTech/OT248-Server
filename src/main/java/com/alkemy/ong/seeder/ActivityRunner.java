@@ -1,4 +1,4 @@
-/*package com.alkemy.ong.seeder;
+package com.alkemy.ong.seeder;
 
 import com.alkemy.ong.model.Activity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,4 +123,4 @@ public class ActivityRunner implements CommandLineRunner {
             }
         }
     }
-}*/
+}
