@@ -10,13 +10,14 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 
 @Entity
 @SQLDelete(sql = "UPDATE contacts SET deleted = true WHERE id_contact =?")
 @Where(clause = "deleted = false")
 @Getter
 @Setter
-@ToString
+@Data
 @RequiredArgsConstructor
 @Table(name = "contacts")
 public class Contact {
