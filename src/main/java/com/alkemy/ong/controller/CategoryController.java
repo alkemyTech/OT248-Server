@@ -6,6 +6,7 @@ import com.alkemy.ong.exception.EmptyListException;
 import com.alkemy.ong.service.CategoryService;
 
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 
 import com.alkemy.ong.util.CategoryResponse;
@@ -62,5 +63,11 @@ public class CategoryController {
     public ResponseEntity<CategoryResponseDTO> update(@PathVariable Long id, @Valid @RequestBody CategoryDto categoryDto) {
         CategoryResponseDTO response = categoryService.update(id, categoryDto);
         return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCategory(@PathVariable("id") Long id){
+        categoryService.deleteCategory(id);
     }
 }

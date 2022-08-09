@@ -13,4 +13,5 @@ public interface CategoryService {
     CategoryResponse getAllCategories(int numPage, int sizePage, String orderBy, String sortDir);
     List<String> getCategoryNames() throws EmptyListException;
     CategoryResponseDTO update (Long id, CategoryDto categoryDto);
+    void deleteCategory(Long id);
 }
