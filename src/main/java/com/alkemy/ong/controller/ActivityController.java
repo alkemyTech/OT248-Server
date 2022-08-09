@@ -14,17 +14,17 @@ import javax.validation.Valid;
 @RequestMapping
 public class ActivityController {
 
-    @Autowired
-    private ActivityService activityService;
-
-    @PostMapping("/activities")
-    public ResponseEntity<?> registerActivities(@Valid @RequestBody ActivityDto activityDto) {
-        try {
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(activityService.saveActivity(activityDto));
-        } catch (Exception exception) {
-            throw new ApiError(HttpStatus.BAD_REQUEST, exception);
-        }
-    }
+//    @Autowired
+//    private ActivityService activityService;
+//
+//    @PostMapping("/activities")
+//    public ResponseEntity<?> registerActivities(@Valid @RequestBody ActivityDto activityDto) {
+//        try {
+//            return ResponseEntity
+//                    .status(HttpStatus.CREATED)
+//                    .body(activityService.saveActivity(activityDto));
+//        } catch (Exception exception) {
+//            throw new ApiError(HttpStatus.BAD_REQUEST, exception);
+//        }
+//    }
 }
