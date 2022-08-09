@@ -30,4 +30,19 @@ public class ActivityController {
             throw new ApiError(HttpStatus.BAD_REQUEST, exception);
         }
     }
+
+   
+    @PostMapping
+    public ResponseEntity<ActivityResponseDTO> create (@Valid @RequestBody ActivityRequestDTO activityRequestDTO) throws NameAlreadyExists {
+        ActivityResponseDTO activityCreated = activityService.save(activityRequestDTO);
+        return ResponseEntity.ok().body(activityCreated);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ActivityResponseDTO> update (@PathVariable Long id, @Valid @RequestBody ActivityRequestDTO request){
+        ActivityResponseDTO response = activityService.update(id, request);
+        return ResponseEntity.ok().body(response);
+    }
+
+
 }
