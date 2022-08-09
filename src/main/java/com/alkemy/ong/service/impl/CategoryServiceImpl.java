@@ -3,6 +3,7 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.dto.response.CategoryResponseDTO;
 import com.alkemy.ong.exception.EmptyListException;
+import com.alkemy.ong.exception.ResourceNotFoundException;
 import com.alkemy.ong.model.Category;
 import com.alkemy.ong.repository.CategoryRepository;
 import com.alkemy.ong.service.CategoryService;
@@ -60,6 +61,8 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.entityToResponseDTO(categoryRepository.save(category));
         }
 
+
+
     @Override
     public CategoryDto findById(Long id) {
         
@@ -72,6 +75,13 @@ public class CategoryServiceImpl implements CategoryService {
            throw new EntityNotFoundException(messageSource.getMessage("category.notFound", null, Locale.US));
           
         }
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+        categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category", "id", id));
+        categoryRepository.deleteById(id);
     }
 
 }

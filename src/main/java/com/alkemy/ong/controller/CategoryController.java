@@ -7,6 +7,7 @@ import com.alkemy.ong.service.CategoryService;
 
 
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,6 +63,12 @@ public class CategoryController {
     public ResponseEntity<CategoryResponseDTO> update (@PathVariable Long id, @Valid @RequestBody CategoryDto categoryDto)  {
         CategoryResponseDTO response = categoryService.update(id, categoryDto);
         return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCategory(@PathVariable("id") Long id){
+        categoryService.deleteCategory(id);
     }
 
 
