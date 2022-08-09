@@ -50,18 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto findById(Long id) {
-
-        Optional<Category> res = categoryRepository.findById(id);
-        if (res.isPresent()) {
-            Category category = res.get();
-            return categoryMapper.categoryToCategoryDTO(category);
-        } else {
-            throw new EntityNotFoundException(messageSource.getMessage("category.notFound", null, Locale.US));
-        }
-    }
-
-    @Override
     public CategoryResponse getAllCategories(int numPage, int sizePage, String orderBy, String sortDir) {
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(orderBy).ascending()
                 : Sort.by(orderBy).descending();
@@ -93,7 +81,6 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAllCategoryNames();
     }
 
-
     @Transactional
     public CategoryResponseDTO update(Long id, CategoryDto categoryDto) {
         Category category = categoryRepository
@@ -103,8 +90,6 @@ public class CategoryServiceImpl implements CategoryService {
         category = categoryMapper.updateCategory(category, categoryDto);
         return categoryMapper.entityToResponseDTO(categoryRepository.save(category));
     }
-        }
-
 
     @Override
     public CategoryDto findById(Long id) {
