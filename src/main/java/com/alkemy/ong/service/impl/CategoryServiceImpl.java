@@ -62,15 +62,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto findById(Long id) {
-        
         Optional<Category> res = categoryRepository.findById(id);
         if (res.isPresent()) {
             Category category = res.get();
             return categoryMapper.categoryToCategoryDTO(category);
-            
         } else {
            throw new EntityNotFoundException(messageSource.getMessage("category.notFound", null, Locale.US));
-          
         }
     }
 

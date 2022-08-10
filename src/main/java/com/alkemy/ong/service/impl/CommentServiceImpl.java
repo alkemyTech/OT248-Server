@@ -9,6 +9,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class CommentServiceImpl implements ICommentService {
             Comment commentSaved = commentRepository.save(comment);
             return commentMapper.commentToDto(commentSaved);
         } catch (Exception e) {
+            System.out.println(e + "fghfghfghfghfgh");
             throw new RuntimeException(e);
         }
     }
@@ -42,6 +44,17 @@ public class CommentServiceImpl implements ICommentService {
             }
         } catch (Exception e) {
             throw new NotFoundException("Comment not found");
+        }
+    }
+
+    @Override
+    public CommentDto findById(Long id) {
+        Optional<Comment> res = commentRepository.findById(id);
+        if (res.isPresent()) {
+            Comment comment = res.get();
+            return commentMapper.commentToDto(comment);
+        } else {
+            throw new EntityNotFoundException("Not found");
         }
     }
 }

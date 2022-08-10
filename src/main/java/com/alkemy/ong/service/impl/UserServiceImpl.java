@@ -11,6 +11,7 @@ import com.alkemy.ong.service.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,6 +63,28 @@ public class UserServiceImpl implements UserService {
             userRepository.delete(users);
         } else {
             throw new Exception("a user with that id was not found");
+        }
+    }
+
+    @Override
+    public UserResponseDTO findById(Long id) {
+        Optional<Users> res = userRepository.findById(id);
+        if (res.isPresent()) {
+            Users user = res.get();
+            return usersMapper.userEntityToDTO(user);
+        } else {
+            throw new EntityNotFoundException("Not found");
+        }
+    }
+
+    @Override
+    public UserResponseDTO findByEmail(String email) {
+        Optional<Users> res = Optional.ofNullable(userRepository.findByEmail(email));
+        if (res.isPresent()) {
+            Users user = res.get();
+            return usersMapper.userEntityToDTO(user);
+        } else {
+            throw new EntityNotFoundException("Not found");
         }
     }
 
