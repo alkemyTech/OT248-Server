@@ -9,7 +9,7 @@ public abstract class PaginationUtil<T, ID, R extends JpaRepository<T,ID>> {
 
     @Autowired
     private R repository;
-    private static final Integer PAGE_SIZE = 10;
+    protected static final Integer PAGE_SIZE = 10;
 
     protected static final String PATH_NEWS = "/get-all?page=%d";
 
