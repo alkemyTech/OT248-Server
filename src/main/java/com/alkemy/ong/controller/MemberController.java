@@ -9,8 +9,8 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.persistence.EntityNotFoundException;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +44,7 @@ public class MemberController {
         }
     }
 
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateMember (@Valid @PathVariable(value = "id") Long id, @RequestBody MemberDto memberUpdate ) {
         MemberDto memberDtoResponse = memberService.updateMember(memberUpdate,id);
@@ -54,4 +55,18 @@ public class MemberController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(memberDtoResponse);
     }
+
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> removeMember(@PathVariable(value = "id") Long id) {
+        try {
+            memberService.removeMember(id);
+            return ResponseEntity
+                    .ok()
+                    .body(messageSource.getMessage("deleted.member", null, Locale.US));
+        } catch (Exception exception) {
+            throw new ApiError(HttpStatus.NOT_FOUND, exception);
+        }
+    }
 }
+

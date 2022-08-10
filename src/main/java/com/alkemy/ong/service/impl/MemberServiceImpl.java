@@ -1,13 +1,13 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.dto.MemberDto;
+import com.alkemy.ong.exception.ResourceNotFoundException;
 import com.alkemy.ong.model.Member;
 import com.alkemy.ong.repository.MemberRepository;
 import com.alkemy.ong.service.MemberService;
 import com.alkemy.ong.service.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -53,6 +53,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-
+    @Override
+    public void removeMember(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Member", "id", id));
+        memberRepository.delete(member);
+    }
 }
 
