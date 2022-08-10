@@ -1,6 +1,7 @@
 package com.alkemy.ong.service.mapper.comment;
 
 import com.alkemy.ong.dto.CommentDto;
+import com.alkemy.ong.dto.response.CommentResponseDTO;
 import com.alkemy.ong.model.Comment;
 import com.alkemy.ong.model.News;
 import com.alkemy.ong.model.Users;
@@ -43,5 +44,12 @@ public class CommentMapper {
         comment.setUser(user);
         comment.setNews(news);
         return comment;
+    }
+
+    public CommentResponseDTO commentToResponseDto(Comment comment) {
+        return CommentResponseDTO
+                .builder()
+                .body(comment.getBody())
+                .build();
     }
 }
