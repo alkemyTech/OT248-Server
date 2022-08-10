@@ -24,34 +24,32 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto create(MemberDto memberDto) {
-        Member member = memberMapper.DtoToEntity(memberDto);
+        Member member = memberMapper.dtoToEntity(memberDto);
         Member newMember = memberRepository.save(member);
-        return memberMapper.MemberToDto(newMember);
+        return memberMapper.memberToDto(newMember);
     }
 
     @Override
     public List<MemberDto> getAll() {
         return memberRepository.findAll().stream()
-                .map(m -> memberMapper.MemberToDto(m))
+                .map(m -> memberMapper.memberToDto(m))
                 .collect(Collectors.toList());
     }
 
     @Override
     public MemberDto findMemberById(Long id) {
         Optional<Member> member = memberRepository.findById(id);
-        return memberMapper.MemberToDto(member.get());
+        if(member.isEmpty())return null;
+        return memberMapper.memberToDto(member.get());
     }
 
     @Override
     public MemberDto updateMember(MemberDto memberUpdate, Long id) {
-        try {
-            MemberDto memberDto = findMemberById(id);
-        } catch (NoSuchElementException exception) {
-            return null;
-        }
+        MemberDto memberDto = findMemberById(id);
+        if(memberDto==null) return null;
         memberUpdate.setId(id);
-        Member member = memberMapper.DtoToEntity(memberUpdate);
-        return memberMapper.MemberToDto(memberRepository.save(member));
+        Member member = memberMapper.dtoToEntity(memberUpdate);
+        return memberMapper.memberToDto(memberRepository.save(member));
     }
 
 

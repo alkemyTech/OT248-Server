@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
@@ -44,9 +45,13 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MemberDto> updateMember (@Valid @PathVariable(value = "id") Long id, @RequestBody MemberDto memberUpdate ) {
+    public ResponseEntity<?> updateMember (@Valid @PathVariable(value = "id") Long id, @RequestBody MemberDto memberUpdate ) {
         MemberDto memberDtoResponse = memberService.updateMember(memberUpdate,id);
-        if(memberDtoResponse==null) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if(memberDtoResponse==null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Member "+messageSource.getMessage
+                            ("error.memberList.empty", null, Locale.US));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(memberDtoResponse);
     }
 }

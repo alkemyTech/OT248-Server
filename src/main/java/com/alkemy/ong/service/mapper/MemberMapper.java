@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberMapper {
 
-    public MemberDto MemberToDto(Member member){
+    public MemberDto memberToDto(Member member){
         return MemberDto.builder()
                 .id(member.getId())
                 .name(member.getName())
@@ -19,7 +19,7 @@ public class MemberMapper {
                 .build();
     }
 
-    public Member DtoToEntity(MemberDto memberDto){
+    public Member dtoToEntity(MemberDto memberDto){
         return Member.builder()
                 .id(memberDto.getId())
                 .name(memberDto.getName())
