@@ -11,6 +11,10 @@ public interface SlideService {
     SlideResponseDTO getById(Long id);
 
     List<SlidesDto> getAllSlides();
+    
+    SlidesDto createSlides(SlidesDto slidesDto) throws Exception;
+
+    void deleteById(Long id);
 
     SlideResponseDTO update (Long id, SlideRequestDTO requestDTO);
 
