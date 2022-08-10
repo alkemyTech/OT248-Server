@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import com.amazonaws.services.kms.model.AlreadyExistsException;
 import com.amazonaws.services.workdocs.model.EntityAlreadyExistsException;
+import javassist.NotFoundException;
 import org.hibernate.TypeMismatchException;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NameAlreadyExists.class)
     @ResponseBody
     public MessageResponse handleAlreadyExists (Exception e, HttpServletRequest request) {
+        return new MessageResponse(LocalDateTime.now(), e, request);
+    }
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseBody
+    public MessageResponse handleResourceNotFound (Exception e, HttpServletRequest request){
         return new MessageResponse(LocalDateTime.now(), e, request);
     }
     @ResponseStatus(HttpStatus.NOT_FOUND)
