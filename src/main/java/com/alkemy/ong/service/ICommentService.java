@@ -1,9 +1,13 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.CommentDto;
+import com.alkemy.ong.dto.response.CommentResponseDTO;
 import javassist.NotFoundException;
+
+import java.util.List;
 
 public interface ICommentService {
     CommentDto save(CommentDto dto);
     void deleteById(Long id) throws NotFoundException;
+    List<CommentResponseDTO> getAllResponseDto();
 }
