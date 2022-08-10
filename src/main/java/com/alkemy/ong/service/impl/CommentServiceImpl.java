@@ -29,7 +29,6 @@ public class CommentServiceImpl implements ICommentService {
             Comment commentSaved = commentRepository.save(comment);
             return commentMapper.commentToDto(commentSaved);
         } catch (Exception e) {
-            System.out.println(e + "fghfghfghfghfgh");
             throw new RuntimeException(e);
         }
     }
