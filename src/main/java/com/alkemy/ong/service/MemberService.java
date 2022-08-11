@@ -11,5 +11,10 @@ public interface MemberService {
     MemberDto create(MemberDto memberDto);
     
     List<MemberDto> getAll();
+
+
+    MemberDto updateMember(MemberDto memberUpdate, Long id);
+
     void removeMember(Long id);
 }
+
