@@ -36,8 +36,8 @@ public class MemberServiceImpl implements MemberService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public MemberDto findMemberById(Long id) {
+
+    private MemberDto findMemberById(Long id) {
         Optional<Member> member = memberRepository.findById(id);
         if(member.isEmpty())return null;
         return memberMapper.memberToDto(member.get());
