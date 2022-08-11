@@ -4,6 +4,7 @@ import com.alkemy.ong.dto.MemberDto;
 import com.alkemy.ong.exception.ApiError;
 import com.alkemy.ong.service.MemberService;
 import com.alkemy.ong.service.impl.MemberServiceImpl;
+import com.alkemy.ong.util.MemberResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,8 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import static com.alkemy.ong.util.Constants.*;
+
 
 @RestController
 @RequestMapping("/members")
@@ -24,6 +27,15 @@ public class MemberController {
     private MemberService memberService;
     @Autowired
     private MessageSource messageSource;
+
+    @GetMapping
+    public MemberResponse listMembers(
+            @RequestParam(value = "pageNo", defaultValue = NUMBER_PAGE_DEFAULT, required = false) int numberPage,
+            @RequestParam(value = "pageSize", defaultValue = SIZE_PAGE_DEFAULT, required = false) int sizePage,
+            @RequestParam(value = "sortBy", defaultValue = ORDER_BY_DEFAULT, required = false) String orderBy,
+            @RequestParam(value = "sortDir", defaultValue = ORDER_DIRECTION_DEFAULT, required = false) String sortDir) {
+        return memberService.getAllMemberWithPagination(numberPage, sizePage, orderBy, sortDir);
+    }
 
     @GetMapping()
     public ResponseEntity<?> getAllMembers(){
