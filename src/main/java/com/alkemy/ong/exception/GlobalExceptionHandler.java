@@ -8,15 +8,18 @@ import com.amazonaws.services.workdocs.model.EntityAlreadyExistsException;
 import org.hibernate.TypeMismatchException;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.support.WebExchangeBindException;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +60,18 @@ public class GlobalExceptionHandler {
     public MessageResponse mailNotFound (Exception e, HttpServletRequest request){
         return new MessageResponse (LocalDateTime.now(), e, request);
 
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<MessageResponse> handlerNotFound(
+        ResourceNotFoundException resourceNotFoundException,
+        HttpServletRequest httpServletRequest
+    ){
+        return new ResponseEntity<>(new MessageResponse(
+            LocalDateTime.now(),
+            resourceNotFoundException,
+            httpServletRequest
+        ), HttpStatus.NOT_FOUND);
     }
 
 }
