@@ -40,11 +40,11 @@ public class CommentController {
     @DeleteMapping("{id}")
     public ResponseEntity<?> removeComment(@PathVariable(value = "id") Long id) {
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            boolean hasAdminRole = authentication.getAuthorities().stream()
+            Authentication userCommentIdObject = SecurityContextHolder.getContext().getAuthentication();
+            boolean hasAdminRole = userCommentIdObject.getAuthorities().stream()
                     .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
             Long commentId= commentService.findById(id).getUserId();
-            String name = authentication.getName();
+            String name = userCommentIdObject.getName();
             Long userId =userService.findByEmail(name).getId();
             if (hasAdminRole)
             {
