@@ -22,12 +22,12 @@ public class Comment {
     @Column(nullable = false)
     private String body;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_id")
     @NotNull(message = "user_id can not be null")
     private Users user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinTable(name = "news_id")
     @NotNull(message = "news_id can not be null")
     private News news;

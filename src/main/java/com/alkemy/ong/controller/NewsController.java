@@ -1,9 +1,11 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.dto.CommentDto;
 import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.exception.ApiError;
 import com.alkemy.ong.model.Contact;
 import com.alkemy.ong.service.NewsService;
+import com.alkemy.ong.service.impl.CommentServiceImpl;
 import com.amazonaws.services.kms.model.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -11,10 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Locale;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/news")
@@ -25,7 +25,9 @@ public class NewsController {
 
     @Autowired
     private MessageSource messageSource;
-
+    
+    @Autowired
+    private CommentServiceImpl commentServiceImpl;
 
     @PostMapping
     public ResponseEntity<NewsDto> createNews(@Valid @RequestBody NewsDto newsDto){
@@ -63,6 +65,18 @@ public class NewsController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(messageSource.getMessage("news.deleted.message", null, Locale.US), HttpStatus.OK);
+    }
+    
+      
+    @GetMapping("/{newsId}/comments")
+    public ResponseEntity<?> findCommentByNewsId(@PathVariable("newsId") Long newsId){
+     List<CommentDto> commentsDto; 
+        try {
+            commentsDto = commentServiceImpl.findCommentByNewsId(newsId);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+     return ResponseEntity.status(HttpStatus.OK).body(commentsDto);
     }
 
 }
