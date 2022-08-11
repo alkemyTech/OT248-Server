@@ -6,4 +6,8 @@ import javassist.NotFoundException;
 public interface ICommentService {
     CommentDto save(CommentDto dto);
     void deleteById(Long id) throws NotFoundException;
+
+    CommentDto updateComment(CommentDto commentDto, Long id, String token);
+
+
 }

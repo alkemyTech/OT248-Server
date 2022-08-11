@@ -74,4 +74,18 @@ public class GlobalExceptionHandler {
         ), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ForbiddenUpdate.class)
+    public ResponseEntity<MessageResponse> handleForbiddenUpdate(
+            ForbiddenUpdate forbiddenUpdate,
+            HttpServletRequest httpServletRequest
+    ){
+        return new ResponseEntity<>(new MessageResponse(
+                LocalDateTime.now(),
+                forbiddenUpdate,
+                httpServletRequest
+        ), HttpStatus.FORBIDDEN);
+    }
+
+
+
 }
