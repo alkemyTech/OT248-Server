@@ -8,4 +8,6 @@ public interface TestimonialService {
 
     TestimonialDto updateTestimonial(TestimonialDto testimonialDto, Long id);
     
+    void deleteTestimonial(Long id);
+    
 }

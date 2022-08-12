@@ -17,8 +17,8 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE testimonials SET softDelete = true WHERE id =?")
-@Where(clause = "softDelete = false")
+@SQLDelete(sql = "UPDATE testimonials SET deleted = true WHERE id =?")
+@Where(clause = "deleted = false")
 @Table(name = "testimonials")
 
 public class Testimonial {
@@ -43,5 +43,5 @@ public class Testimonial {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedOnTimestamp;
 
-    private Boolean softDelete = false;
+    private boolean deleted = Boolean.FALSE;
 }
