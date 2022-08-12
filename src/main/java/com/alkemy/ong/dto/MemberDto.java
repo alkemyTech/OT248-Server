@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class MemberDto {
 
+    private Long id;
     @NotNull(message = "name can´t be null")
     private String name;
 

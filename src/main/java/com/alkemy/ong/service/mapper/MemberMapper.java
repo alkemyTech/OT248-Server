@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberMapper {
 
-    public MemberDto MemberToDto(Member member){
+    public MemberDto memberToDto(Member member){
         return MemberDto.builder()
+                .id(member.getId())
                 .name(member.getName())
                 .facebookUrl(member.getFacebookUrl())
                 .instagramUrl(member.getInstagramUrl())
@@ -18,8 +19,9 @@ public class MemberMapper {
                 .build();
     }
 
-    public Member DtoToEntity(MemberDto memberDto){
+    public Member dtoToEntity(MemberDto memberDto){
         return Member.builder()
+                .id(memberDto.getId())
                 .name(memberDto.getName())
                 .facebookUrl(memberDto.getFacebookUrl())
                 .instagramUrl(memberDto.getInstagramUrl())

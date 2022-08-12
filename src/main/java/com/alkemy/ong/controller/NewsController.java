@@ -2,11 +2,13 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.CommentDto;
 import com.alkemy.ong.dto.NewsDto;
+import com.alkemy.ong.dto.response.NewsPageResponse;
 import com.alkemy.ong.exception.ApiError;
 import com.alkemy.ong.model.Contact;
 import com.alkemy.ong.service.NewsService;
 import com.alkemy.ong.service.impl.CommentServiceImpl;
 import com.amazonaws.services.kms.model.AlreadyExistsException;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -32,6 +34,11 @@ public class NewsController {
     @PostMapping
     public ResponseEntity<NewsDto> createNews(@Valid @RequestBody NewsDto newsDto){
         return new ResponseEntity<NewsDto>(newsService.createNews(newsDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get-all")
+    public ResponseEntity<NewsPageResponse> getNewsPaginated (@RequestParam(defaultValue = "1") Integer page) throws NotFoundException {
+        return ResponseEntity.ok().body(newsService.pagination(page));
     }
 
     @GetMapping("/detail/{id}")

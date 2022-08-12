@@ -69,7 +69,6 @@ public class UserDetailsCustomService implements UserDetailsService {
         user.setPassword(encryptPass);
         user.setRole(roleRepository.findByName("ROLE_USER"));
         userRepository.save(user);
-
         String jwt = jwUtils.generateToken(loadUserByUsername(user.getEmail()));
 
         return Jwt.builder()
