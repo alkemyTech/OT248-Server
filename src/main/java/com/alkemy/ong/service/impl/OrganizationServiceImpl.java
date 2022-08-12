@@ -2,6 +2,9 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.dto.OrganizationDto;
 import com.alkemy.ong.dto.OrganizationUpdateDTO;
+import com.alkemy.ong.dto.SlidesDto;
+import com.alkemy.ong.dto.response.OrganizationResponseDTO;
+import com.alkemy.ong.dto.response.SlideResponseDTO;
 import com.alkemy.ong.model.Organization;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.service.OrganizationService;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,6 +44,13 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizationMapper
                 .organizationEntityToOrganizationUpdateDTO(organizationRepository
                         .save(organization));
+    }
+
+    @Override
+    public OrganizationResponseDTO getOrganizationResponseDTO(List<SlideResponseDTO> slidesDtos, OrganizationDto organizationResponse) {
+        OrganizationResponseDTO organizationResponseDTO=organizationMapper.organizationDTOToResponseDto(organizationResponse);
+        organizationResponseDTO.setSlides(slidesDtos);
+        return organizationResponseDTO;
     }
 
 
