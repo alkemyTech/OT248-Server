@@ -8,10 +8,13 @@ import com.alkemy.ong.service.ICommentService;
 import com.alkemy.ong.service.mapper.comment.CommentMapper;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.util.Locale;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +26,9 @@ public class CommentServiceImpl implements ICommentService {
     private CommentRepository commentRepository;
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Override
     @Transactional
@@ -45,7 +51,18 @@ public class CommentServiceImpl implements ICommentService {
                 commentRepository.deleteById(id);
             }
         } catch (Exception e) {
-            throw new NotFoundException("Comment not found");
+            throw new NotFoundException(messageSource.getMessage("error.comment.notFound", null, Locale.US));
+        }
+    }
+
+    @Override
+    public CommentDto findById(Long id) {
+        Optional<Comment> res = commentRepository.findById(id);
+        if (res.isPresent()) {
+            Comment comment = res.get();
+            return commentMapper.commentToDto(comment);
+        } else {
+            throw new EntityNotFoundException(messageSource.getMessage("error.comment.notFound", null, Locale.US));
         }
     }
 

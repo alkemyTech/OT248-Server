@@ -9,9 +9,12 @@ import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UserService;
 import com.alkemy.ong.service.mapper.UsersMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -26,7 +29,8 @@ public class UserServiceImpl implements UserService {
     private UsersMapper usersMapper;
 
     @Autowired private JwUtils jwUtils;
-
+    @Autowired
+    private MessageSource messageSource;
     public List<UserResponseDTO> getAll() {
         return usersMapper.userEntityListToDTOList(userRepository.findAll());
     }
@@ -61,7 +65,29 @@ public class UserServiceImpl implements UserService {
             Users users = response.get();
             userRepository.delete(users);
         } else {
-            throw new Exception("a user with that id was not found");
+            throw new Exception(messageSource.getMessage("error.user.notFound", null, Locale.US));
+        }
+    }
+
+    @Override
+    public UserResponseDTO findById(Long id) {
+        Optional<Users> res = userRepository.findById(id);
+        if (res.isPresent()) {
+            Users user = res.get();
+            return usersMapper.userEntityToDTO(user);
+        } else {
+            throw new EntityNotFoundException(messageSource.getMessage("error.user.notFound", null, Locale.US));
+        }
+    }
+
+    @Override
+    public UserResponseDTO findByEmail(String email) {
+        Optional<Users> res = Optional.ofNullable(userRepository.findByEmail(email));
+        if (res.isPresent()) {
+            Users user = res.get();
+            return usersMapper.userEntityToDTO(user);
+        } else {
+            throw new EntityNotFoundException(messageSource.getMessage("error.user.notFound", null, Locale.US));
         }
     }
 
