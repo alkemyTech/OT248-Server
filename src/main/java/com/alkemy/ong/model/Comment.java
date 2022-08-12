@@ -2,10 +2,13 @@ package com.alkemy.ong.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 @Data
@@ -32,4 +35,13 @@ public class Comment {
     @NotNull(message = "news_id can not be null")
     private News news;
 
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
+    private Date createAt;
+
+    @Column(name = "modified_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @UpdateTimestamp
+    private Date updateAt;
 }
