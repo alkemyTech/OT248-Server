@@ -72,13 +72,13 @@ public class CommentController {
 
     @GetMapping
     public ResponseEntity<?> getAll(){
-        List<CommentResponseDTO> response = iCommentService.getAllResponseDto();
+        List<CommentResponseDTO> response = commentService.getAllResponseDto();
         if(response == null || response.isEmpty()){
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(messageSource.getMessage("error.commentList.empty", null, Locale.US));
         }
-        return ResponseEntity.ok(iCommentService.getAllResponseDto());
+        return ResponseEntity.ok(commentService.getAllResponseDto());
     }
 
 }

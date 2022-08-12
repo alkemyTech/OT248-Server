@@ -80,5 +80,5 @@ public class GlobalExceptionHandler {
             httpServletRequest
         ), HttpStatus.NOT_FOUND);
     }
-
-}
+    
+  }

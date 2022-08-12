@@ -25,13 +25,14 @@ public class Comment {
     @Column(nullable = false)
     private String body;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "users_id")
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_id")
     @NotNull(message = "user_id can not be null")
     private Users user;
 
-    @ManyToOne
-    @JoinColumn(name = "news_id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinTable(name = "news_id")
     @NotNull(message = "news_id can not be null")
     private News news;
 
