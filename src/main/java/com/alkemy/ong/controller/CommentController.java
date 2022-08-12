@@ -6,6 +6,7 @@ import com.alkemy.ong.exception.ApiError;
 import com.alkemy.ong.model.Comment;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.repository.UserRepository;
+import com.alkemy.ong.dto.response.CommentResponseDTO;
 import com.alkemy.ong.service.ICommentService;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.List;
+import java.util.Locale;
+
 
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
+
 
     @Autowired private ICommentService commentService;
     @Autowired
@@ -31,11 +36,13 @@ public class CommentController {
     @Autowired
     private UserService userService;
 
+
     @PostMapping
     public ResponseEntity<CommentDto> addComment(
             @Valid @RequestBody CommentDto commentDto){
         return new ResponseEntity<>(commentService.save(commentDto), HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> removeComment(@PathVariable(value = "id") Long id) {
@@ -61,6 +68,17 @@ public class CommentController {
         } catch (Exception exception) {
             throw new ApiError(HttpStatus.NOT_FOUND, exception);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAll(){
+        List<CommentResponseDTO> response = iCommentService.getAllResponseDto();
+        if(response == null || response.isEmpty()){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(messageSource.getMessage("error.commentList.empty", null, Locale.US));
+        }
+        return ResponseEntity.ok(iCommentService.getAllResponseDto());
     }
 
 }

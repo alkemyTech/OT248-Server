@@ -81,6 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
 
+
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
