@@ -32,6 +32,9 @@ public class OrganizationMapper {
                 .aboutUsText(organization.getAboutUsText())
                 .email(organization.getEmail())
                 .welcomeText(organization.getWelcomeText())
+                .urlFacebook(organization.getUrlFacebook())
+                .urlInstagram(organization.getUrlInstagram())
+                .urlLinkedin(organization.getUrlLinkedin())
                 .build();
     }
 
@@ -41,10 +44,33 @@ public class OrganizationMapper {
                 .name(organizationDTO.getName())
                 .address(organizationDTO.getAddress())
                 .phone(organizationDTO.getPhone())
+                .email(organizationDTO.getEmail())
                 .image(organizationDTO.getImage())
                 .aboutUsText(organizationDTO.getAboutUsText())
                 .welcomeText(organizationDTO.getWelcomeText())
+                .urlFacebook(organizationDTO.getUrlFacebook())
+                .urlInstagram(organizationDTO.getUrlInstagram())
+                .urlLinkedin(organizationDTO.getUrlLinkedin())
                 .updateTimestamp(new Date())
                 .build();
+    }
+
+    public Organization organizationUpdate (OrganizationUpdateDTO organizationDTO, Organization entity){
+        return Organization.builder()
+                .idOrganization(entity.getIdOrganization())
+                .name(organizationDTO.getName())
+                .address(organizationDTO.getAddress())
+                .phone(organizationDTO.getPhone())
+                .email(organizationDTO.getEmail())
+                .image(organizationDTO.getImage())
+                .aboutUsText(organizationDTO.getAboutUsText())
+                .welcomeText(organizationDTO.getWelcomeText())
+                .urlFacebook(organizationDTO.getUrlFacebook())
+                .urlInstagram(organizationDTO.getUrlInstagram())
+                .urlLinkedin(organizationDTO.getUrlLinkedin())
+                .creationTimestamp(entity.getCreationTimestamp())
+                .updateTimestamp(new Date())
+                .build();
+
     }
 }

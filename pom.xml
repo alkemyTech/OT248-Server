@@ -89,6 +89,22 @@
 			<artifactId>aws-java-sdk</artifactId>
 			<version>1.11.133</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<artifactId>junit-vintage-engine</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>hamcrest-core</artifactId>
+					<groupId>org.hamcrest</groupId>
+				</exclusion>
+			</exclusions>
+			<groupId>org.junit.vintage</groupId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
