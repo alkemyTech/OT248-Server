@@ -4,6 +4,7 @@ import com.alkemy.ong.dto.TestimonialDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -22,5 +23,11 @@ public class TestimonialPageResponse {
 
     private int totalPages;
 
-    private boolean last;
+    private boolean lastPage;
+
+    private boolean firstPage;
+
+    private Pageable nextPage;
+
+    private Pageable previousPage;
 }
