@@ -7,6 +7,7 @@ import com.alkemy.ong.exception.ApiError;
 import com.alkemy.ong.model.Contact;
 import com.alkemy.ong.service.NewsService;
 import com.alkemy.ong.service.impl.CommentServiceImpl;
+import com.alkemy.ong.util.documentation.NewsDocumentation;
 import com.amazonaws.services.kms.model.AlreadyExistsException;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -26,7 +27,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/news")
-public class NewsController {
+public class NewsController implements NewsDocumentation {
 
     @Autowired
     private NewsService newsService;
@@ -43,21 +44,11 @@ public class NewsController {
         return new ResponseEntity<NewsDto>(newsService.createNews(newsDto), CREATED);
     }
 
-    @ApiOperation(value = "Get a page with 10 items according to the page number.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Page found successfully"),
-            @ApiResponse(code = 404, message = "Page doesn't have elements" )})
-    @ApiParam(value = "Number of page", required = true, defaultValue = "1")
     @GetMapping("/get-all")
     public ResponseEntity<NewsPageResponse> getNewsPaginated (@RequestParam(defaultValue = "1") Integer page) throws NotFoundException {
         return ResponseEntity.ok().body(newsService.pagination(page));
     }
 
-    @ApiOperation(value = "Get a New by id.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "New found successfully."),
-            @ApiResponse(code = 404, message = "New with that id was not found")})
-    @ApiParam(value = "New id", required = true)
     @GetMapping("/detail/{id}")
     public ResponseEntity<?> detailsNew(@Valid @PathVariable(value = "id") Long id) {
         try {
@@ -70,11 +61,6 @@ public class NewsController {
         }
     }
 
-    @ApiOperation(value = "Update a new by id.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "New updated successfully"),
-            @ApiResponse(code = 404, message = "New with that id doesn't exist")})
-    @ApiParam(value = "New id", required = true)
     @PutMapping("/{id}")
     public ResponseEntity<NewsDto> updateNews (@Valid @PathVariable(value = "id") Long id, @RequestBody NewsDto newsUpdate ) {
         try {
@@ -86,11 +72,6 @@ public class NewsController {
         return ResponseEntity.status(OK).body(newsDtoResponse);
     }
 
-    @ApiOperation(value = "Soft delete a new.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "New deleted successfully"),
-            @ApiResponse(code = 404, message = "New with that id doesn't exist")})
-    @ApiParam(value = "New id", required = true)
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteNews(@PathVariable(name = "id") Long id) {
         try {
@@ -101,11 +82,6 @@ public class NewsController {
         return new ResponseEntity<>(messageSource.getMessage("news.deleted.message", null, Locale.US), OK);
     }
 
-    @ApiOperation(value = "Find comment by new id.")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Comment found successfully"),
-            @ApiResponse(code = 404, message = "New with that id doesn't exist")})
-    @ApiParam(value = "New id", required = true)
     @GetMapping("/{newsId}/comments")
     public ResponseEntity<?> findCommentByNewsId(@PathVariable("newsId") Long newsId){
      List<CommentDto> commentsDto; 
