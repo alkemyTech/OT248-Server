@@ -52,6 +52,12 @@ public class SlideServiceImpl implements SlideService {
     }
 
     @Override
+    public List<SlideResponseDTO> getAllSlidesById(Long id) {
+        List<Slide> slides = slideRepository.findByOrganizationId((id));
+        return slides.stream().map(slide -> slideMapper.entityToDTO(slide)).collect(Collectors.toList());
+    }
+
+    @Override
     public SlideResponseDTO update(Long id, SlideRequestDTO requestDTO) {
         Slide slide = slideRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(messageSource

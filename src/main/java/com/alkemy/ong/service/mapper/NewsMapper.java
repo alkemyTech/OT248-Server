@@ -37,7 +37,20 @@ public class NewsMapper {
     public News newsDTOtoEntity (NewsDto newsDto) {
         return News
                 .builder()
-                .id(newsDto.getId())
+                .content(newsDto.getContent())
+                .name(newsDto.getName())
+                .image(newsDto.getImage())
+                .categoryId(categoryMapper.categoryDtoToCategory(
+                        categoryService.findById(newsDto.getCategoryId())))
+                .createDate(newsDto.getCreateDate())
+                .updateDate(new Date())
+                .build();
+    }
+
+    public News newsDTOtoEntity (NewsDto newsDto, Long id) {
+        return News
+                .builder()
+                .id(id)
                 .content(newsDto.getContent())
                 .name(newsDto.getName())
                 .image(newsDto.getImage())

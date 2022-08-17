@@ -1,12 +1,12 @@
 package com.alkemy.ong.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrganizationUpdateDTO {
 
     private String name;
@@ -16,6 +16,9 @@ public class OrganizationUpdateDTO {
     private String email;
     private String welcomeText;
     private String aboutUsText;
+    private String urlFacebook;
+    private String urlLinkedin;
+    private String urlInstagram;
 
 
 }

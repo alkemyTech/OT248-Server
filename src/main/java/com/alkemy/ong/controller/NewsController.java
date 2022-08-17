@@ -7,6 +7,7 @@ import com.alkemy.ong.exception.ApiError;
 import com.alkemy.ong.model.Contact;
 import com.alkemy.ong.service.NewsService;
 import com.alkemy.ong.service.impl.CommentServiceImpl;
+import com.alkemy.ong.util.documentation.NewsDocumentation;
 import com.amazonaws.services.kms.model.AlreadyExistsException;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,11 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestController
 @RequestMapping("/news")
-public class NewsController {
+public class NewsController implements NewsDocumentation {
 
     @Autowired
     private NewsService newsService;
@@ -31,9 +34,10 @@ public class NewsController {
     @Autowired
     private CommentServiceImpl commentServiceImpl;
 
+
     @PostMapping
     public ResponseEntity<NewsDto> createNews(@Valid @RequestBody NewsDto newsDto){
-        return new ResponseEntity<NewsDto>(newsService.createNews(newsDto), HttpStatus.CREATED);
+        return new ResponseEntity<NewsDto>(newsService.createNews(newsDto), CREATED);
     }
 
     @GetMapping("/get-all")
@@ -42,14 +46,14 @@ public class NewsController {
     }
 
     @GetMapping("/detail/{id}")
-    public ResponseEntity<NewsDto> detailsNew(@Valid @PathVariable(value = "id") Long id) {
+    public ResponseEntity<?> detailsNew(@Valid @PathVariable(value = "id") Long id) {
         try {
             NewsDto newsDto = newsService.findNewsById(id);
             return ResponseEntity
                     .ok()
                     .body(newsDto);
         } catch (Exception exception) {
-            throw new ApiError(HttpStatus.NOT_FOUND, exception);
+            return new ResponseEntity<>(exception.getMessage(), NOT_FOUND);
         }
     }
 
@@ -58,10 +62,10 @@ public class NewsController {
         try {
             NewsDto newsDto = newsService.findNewsById(id);
         } catch (Exception exception) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(NOT_FOUND).build();
         }
-        NewsDto newsDtoResponse = newsService.updateNews(newsUpdate);
-        return ResponseEntity.status(HttpStatus.OK).body(newsDtoResponse);
+        NewsDto newsDtoResponse = newsService.updateNews(newsUpdate, id);
+        return ResponseEntity.status(OK).body(newsDtoResponse);
     }
 
     @DeleteMapping("/{id}")
@@ -69,21 +73,20 @@ public class NewsController {
         try {
             newsService.deleteById(id);
         } catch (Exception e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
         }
-        return new ResponseEntity<>(messageSource.getMessage("news.deleted.message", null, Locale.US), HttpStatus.OK);
+        return new ResponseEntity<>(messageSource.getMessage("news.deleted.message", null, Locale.US), OK);
     }
-    
-      
+
     @GetMapping("/{newsId}/comments")
     public ResponseEntity<?> findCommentByNewsId(@PathVariable("newsId") Long newsId){
      List<CommentDto> commentsDto; 
         try {
             commentsDto = commentServiceImpl.findCommentByNewsId(newsId);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), NOT_FOUND);
         }
-     return ResponseEntity.status(HttpStatus.OK).body(commentsDto);
+     return ResponseEntity.status(OK).body(commentsDto);
     }
 
 }
