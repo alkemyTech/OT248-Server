@@ -78,6 +78,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/comments/{id}").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET, "/comments").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.DELETE, "/comments/{id}").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.PUT, "/organization/public").hasRole(ROLE_ADMIN)
 
 
 
