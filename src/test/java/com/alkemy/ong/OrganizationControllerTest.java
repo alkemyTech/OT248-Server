@@ -72,7 +72,7 @@ public class OrganizationControllerTest extends OrganizationContextTest {
     // ---------- ERROR CODE ------------
 
     @Test
-    @WithUserDetails
+    @WithUserDetails("user")
     public void should_return_FORBIDDEN_status_code_if_try_put_an_organization_with_role_user() throws Exception {
         mockMvc.perform(put(ORGANIZATION_PATH + "/public")
                         .content(createRequest("nameTest",
