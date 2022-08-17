@@ -2,6 +2,7 @@ package com.alkemy.ong.auth.filter;
 
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import com.alkemy.ong.auth.utils.JwUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

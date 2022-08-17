@@ -3,6 +3,7 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.dto.response.NewsPageResponse;
+import com.alkemy.ong.exception.NameAlreadyExists;
 import com.alkemy.ong.model.News;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
@@ -41,13 +42,14 @@ public class NewsServiceImpl extends PaginationUtil<News, Long, NewsRepository> 
     }
 
 
-    public NewsDto findNewsById(Long id) {
+    public NewsDto findNewsById(Long id) throws NameAlreadyExists {
+        if (!newsRepository.existsById(id)) throw new NameAlreadyExists(messageSource.getMessage("news.notFound", null, Locale.US));
         return newsMapper.newsEntityToDTO(newsRepository.findById(id).get());
     }
 
     @Override
-    public NewsDto updateNews(NewsDto newsDto) {
-        News news = newsMapper.newsDTOtoEntity(newsDto);
+    public NewsDto updateNews(NewsDto newsDto, Long id) {
+        News news = newsMapper.newsDTOtoEntity(newsDto, id);
         return newsMapper
                 .newsEntityToDTO(newsRepository
                         .save(news));
@@ -71,12 +73,8 @@ public class NewsServiceImpl extends PaginationUtil<News, Long, NewsRepository> 
         String previousUrl = urlGetPrevious(PATH_NEWS, numberOfPage);
         String nextUrl = urlGetNext(page, PATH_NEWS, numberOfPage);
 
-        double operation = ((double) (numberOfPage * 10) / (double) newsRepository.count());
-        int result = Double.compare(operation, 1.3);
-
-        if (result == 1) throw new NotFoundException(messageSource.getMessage("resource.not.found", null, Locale.US));
+        if (page.getTotalPages() < numberOfPage) throw new NotFoundException(messageSource.getMessage("page.not.without", null, Locale.US));
         return newsMapper.entityPageToPageResponse(page.getContent(), previousUrl, nextUrl);
-
     }
 
     private NewsDto toDto(News news){
