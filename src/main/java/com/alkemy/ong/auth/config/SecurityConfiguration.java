@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -46,7 +47,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure (HttpSecurity httpSecurity) throws Exception {
+    public void configure(WebSecurity web) throws Exception {
+        //SWAGGER
+        web.ignoring().antMatchers(
+                "/v2/api-docs",
+                "/swagger-resources/**",
+                "/swagger-ui.html**",
+                "/swagger-ui/**",
+                "/webjars/**",
+                "favicon.ico");
+        super.configure(web);
+    }
+
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/*").permitAll()
@@ -63,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET, "/news/detail").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.POST, "/categories").hasRole(ROLE_ADMIN)
-                .antMatchers(HttpMethod.POST, "/slides").hasRole(ROLE_ADMIN)        
+                .antMatchers(HttpMethod.POST, "/slides").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.GET, "/categories").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.POST, "/testimonials").hasRole(ROLE_ADMIN)
                 .antMatchers(HttpMethod.POST, "/contacts").hasRole(ROLE_ADMIN)
@@ -90,5 +104,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
 }
