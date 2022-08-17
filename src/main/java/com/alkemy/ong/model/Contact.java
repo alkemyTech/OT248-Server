@@ -10,6 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
 @Entity
@@ -19,6 +20,7 @@ import lombok.Data;
 @Setter
 @Data
 @RequiredArgsConstructor
+@Builder
 @Table(name = "contacts")
 public class Contact {
 
