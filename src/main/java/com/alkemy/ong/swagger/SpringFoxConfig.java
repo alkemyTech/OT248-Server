@@ -17,9 +17,7 @@ public class SpringFoxConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.alkemy.ong.controller"))
-                .paths(PathSelectors.ant("/testimonials/*"))
-                //TODO AGREGA DOCUMENTACION A TODOS LOS CONTROLLERS CON SUS ENDPOINTS
-                /*.paths(PathSelectors.any())*/
+                .paths(PathSelectors.any())
                 .build();
     }
 }
