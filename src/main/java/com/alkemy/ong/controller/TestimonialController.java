@@ -1,10 +1,10 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.TestimonialDto;
+import com.alkemy.ong.dto.response.TestimonialPageResponse;
 import com.alkemy.ong.exception.ApiError;
 import com.alkemy.ong.service.TestimonialService;
 import java.util.Locale;
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import static com.alkemy.ong.util.Constants.*;
 
 @RestController
 @RequestMapping("/testimonials")
@@ -22,6 +24,16 @@ public class TestimonialController {
     
     @Autowired
     private MessageSource messageSource;
+
+    @GetMapping("/pagination")
+    public TestimonialPageResponse getAllPagination(
+            @RequestParam(value = "pageNo", defaultValue = NUMBER_PAGE_DEFAULT, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = SIZE_PAGE_DEFAULT , required = false) int pageSize,
+            @RequestParam(value = "sortBy", defaultValue = ORDER_BY_DEFAULT, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = ORDER_DIRECTION_DEFAULT, required = false) String sortDir
+    ){
+        return testimonialService.getAll(pageNo, pageSize, sortBy, sortDir);
+    }
     
     @PostMapping()
     public ResponseEntity<?> createTestimonial(@Valid @RequestBody TestimonialDto testimonialDto,  BindingResult result){
