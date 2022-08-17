@@ -2,6 +2,7 @@ package com.alkemy.ong.service.mapper;
 
 import com.alkemy.ong.dto.OrganizationDto;
 import com.alkemy.ong.dto.OrganizationUpdateDTO;
+import com.alkemy.ong.dto.response.OrganizationResponseDTO;
 import com.alkemy.ong.model.Organization;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,22 @@ public class OrganizationMapper {
     public OrganizationDto OrganizationEntityToDTO (Organization organization){
         return OrganizationDto
                 .builder()
+                .id(organization.getIdOrganization())
                 .name(organization.getEmail())
+                .image(organization.getImage())
+                .address(organization.getAddress())
+                .phone(organization.getPhone())
+                .urlFacebook(organization.getUrlFacebook())
+                .urlLinkedin(organization.getUrlLinkedin())
+                .urlInstagram(organization.getUrlInstagram())
+                .build();
+    }
+
+    public OrganizationResponseDTO organizationDTOToResponseDto (OrganizationDto organization){
+        return OrganizationResponseDTO
+                .builder()
+                .id(organization.getId())
+                .name(organization.getName())
                 .image(organization.getImage())
                 .address(organization.getAddress())
                 .phone(organization.getPhone())
