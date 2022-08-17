@@ -3,7 +3,6 @@ package com.alkemy.ong.swagger;
 import lombok.val;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -18,7 +17,7 @@ import java.util.List;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+public class SpringFoxConfig {
 
     @Bean
     public Docket api(){
@@ -26,7 +25,7 @@ public class SwaggerConfig {
                 .forCodeGeneration(true)
                 .globalOperationParameters(globalParametersList())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.alkemy.ong"))
+                .apis(RequestHandlerSelectors.basePackage("com.alkemy.ong.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
