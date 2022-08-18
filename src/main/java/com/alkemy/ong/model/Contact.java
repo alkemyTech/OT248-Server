@@ -10,6 +10,7 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ import lombok.Data;
 @Setter
 @Data
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Builder
 @Table(name = "contacts")
 public class Contact {
