@@ -1,7 +1,7 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.dto.CommentDto;
-<<<<<<< HEAD
+
 import com.alkemy.ong.dto.response.UserResponseDTO;
 import com.alkemy.ong.exception.ForbiddenUpdate;
 import com.alkemy.ong.exception.ResourceNotFoundException;
@@ -9,13 +9,13 @@ import com.alkemy.ong.model.Comment;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.repository.CommentRepository;
 import com.alkemy.ong.repository.UserRepository;
-=======
+
 import com.alkemy.ong.dto.response.CommentResponseDTO;
 import com.alkemy.ong.model.Comment;
 import com.alkemy.ong.model.News;
 import com.alkemy.ong.repository.CommentRepository;
 import com.alkemy.ong.repository.NewsRepository;
->>>>>>> develop
+
 import com.alkemy.ong.service.ICommentService;
 import com.alkemy.ong.service.UserService;
 import com.alkemy.ong.service.mapper.comment.CommentMapper;
@@ -41,15 +41,15 @@ public class CommentServiceImpl implements ICommentService {
     @Autowired
     private CommentMapper commentMapper;
 
-<<<<<<< HEAD
+
     @Autowired private UserService userService;
-=======
+
     @Autowired
     private NewsRepository newsRepository;
 
     @Autowired
     private MessageSource messageSource;
->>>>>>> develop
+
 
     @Override
     @Transactional
@@ -77,7 +77,7 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-<<<<<<< HEAD
+
     public CommentDto updateComment(CommentDto commentDto, Long id, String token) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment","id",id));
@@ -86,13 +86,14 @@ public class CommentServiceImpl implements ICommentService {
 
         if( !(comment.getUser().getEmail().equals(userResponseDTO.getEmail())
                 || userRepository.findByEmail(userResponseDTO.getEmail()).getRole()
-                .getName().equals("ADMIN")  ) )
+                .getName().equals("ROLE_ADMIN")  ) )
         {
-            throw new ForbiddenUpdate("comentario","id",id);
+            throw new ForbiddenUpdate("comment","id",id);
         }
         comment.setBody(commentDto.getBody());
         return commentMapper.commentToDto(commentRepository.save(comment));
-=======
+    }
+
     public List<CommentDto> findCommentByNewsId(Long newsId) throws Exception {
         List<CommentDto> commentsDto = new ArrayList<>();
         Optional<News> response = newsRepository.findById(newsId);
@@ -132,6 +133,6 @@ public class CommentServiceImpl implements ICommentService {
                 .map(comment -> commentMapper.commentToResponseDto(comment))
                 .collect(Collectors.toList());
 
->>>>>>> develop
+
     }
 }

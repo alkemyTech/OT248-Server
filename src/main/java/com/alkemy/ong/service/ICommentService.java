@@ -11,15 +11,15 @@ public interface ICommentService {
 
     void deleteById(Long id) throws NotFoundException;
 
-<<<<<<< HEAD
+
     CommentDto updateComment(CommentDto commentDto, Long id, String token);
 
-=======
+
     List<CommentDto> findCommentByNewsId(Long newsId) throws Exception;
 
     CommentDto findById(Long id);
 
     List<CommentResponseDTO> getAllResponseDto();
->>>>>>> develop
+
 
 }

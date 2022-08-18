@@ -13,7 +13,7 @@ public class ForbiddenUpdate extends RuntimeException{
     private long fieldValue;
 
     public ForbiddenUpdate(String resourceName, String fieldName, long fieldValue) {
-        super(String.format("no puede realizar modificaicones al objeto %s con : %s : '%s'", resourceName, fieldName, fieldValue));
+        super(String.format("cannot make modifications to the object %s con : %s : '%s'", resourceName, fieldName, fieldValue));
         this.resourceName = resourceName;
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;

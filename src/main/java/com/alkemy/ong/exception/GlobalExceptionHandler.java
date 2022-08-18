@@ -80,7 +80,7 @@ public class GlobalExceptionHandler {
             httpServletRequest
         ), HttpStatus.NOT_FOUND);
     }
-<<<<<<< HEAD
+
 
     @ExceptionHandler(ForbiddenUpdate.class)
     public ResponseEntity<MessageResponse> handleForbiddenUpdate(
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
 
 
 }
-=======
+
     
-  }
->>>>>>> develop
+
+
