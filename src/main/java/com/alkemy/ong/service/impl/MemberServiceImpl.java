@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
         Page<Member> members = memberRepository.findAll(pageable);
 
         List<Member> categoryList = members.getContent();
-        List<MemberDto> content = categoryList.stream().map(member -> memberMapper.MemberToDto(member))
+        List<MemberDto> content = categoryList.stream().map(member -> memberMapper.memberToDto(member))
                 .collect(Collectors.toList());
 
         MemberResponse memberResponse = new MemberResponse();

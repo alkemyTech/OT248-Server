@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -18,12 +19,10 @@ public class CommentDto {
     @NotNull(message = "body can't be null")
     private String body;
 
-    @NotBlank(message = "userId can't be empty")
-    @NotNull(message = "userId can't be null")
+    @Min(1)
     private Long userId;
 
-    @NotBlank(message = "newsId can't be empty")
-    @NotNull(message = "newsId can't be null")
+    @Min(1)
     private Long newsId;
 
 }

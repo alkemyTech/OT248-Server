@@ -28,7 +28,7 @@ public class Activity {
     @NotNull(message = "{error.name.notnull}")
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     @NotNull(message = "{error.content.notnull}")
     private String content;
 

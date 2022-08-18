@@ -1,14 +1,18 @@
-package com.alkemy.ong.dto;
-import lombok.*;
+package com.alkemy.ong.dto.response;
 
-import javax.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
-@AllArgsConstructor
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class OrganizationDto {
+public class OrganizationResponseDTO {
     private Long id;
     @NotNull(message = "Name can not be empty.")
     private String name;
@@ -27,5 +31,5 @@ public class OrganizationDto {
     private String urlLinkedin;
 
     private String urlInstagram;
-
+    private List<SlideResponseDTO> slides;
 }

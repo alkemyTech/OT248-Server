@@ -17,6 +17,7 @@ public interface UserService {
 
     void deleteUser (Long id) throws Exception;
 
+    UserResponseDTO findById(Long id);
 
-
+    UserResponseDTO findByEmail(String email);
 }

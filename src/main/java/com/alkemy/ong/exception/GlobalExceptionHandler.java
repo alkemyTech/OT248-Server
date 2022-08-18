@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import com.amazonaws.services.kms.model.AlreadyExistsException;
 import com.amazonaws.services.workdocs.model.EntityAlreadyExistsException;
+import javassist.NotFoundException;
 import org.hibernate.TypeMismatchException;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
@@ -55,6 +56,12 @@ public class GlobalExceptionHandler {
         return new MessageResponse(LocalDateTime.now(), e, request);
     }
     @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseBody
+    public MessageResponse handleResourceNotFound (Exception e, HttpServletRequest request){
+        return new MessageResponse(LocalDateTime.now(), e, request);
+    }
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(IOException.class)
     @ResponseBody
     public MessageResponse mailNotFound (Exception e, HttpServletRequest request){
@@ -73,6 +80,7 @@ public class GlobalExceptionHandler {
             httpServletRequest
         ), HttpStatus.NOT_FOUND);
     }
+<<<<<<< HEAD
 
     @ExceptionHandler(ForbiddenUpdate.class)
     public ResponseEntity<MessageResponse> handleForbiddenUpdate(
@@ -89,3 +97,7 @@ public class GlobalExceptionHandler {
 
 
 }
+=======
+    
+  }
+>>>>>>> develop

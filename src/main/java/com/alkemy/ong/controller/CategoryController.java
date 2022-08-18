@@ -44,7 +44,7 @@ public class CategoryController {
         return ResponseEntity.ok().body(responseCategoryDto);
     }
 
-    @GetMapping
+    @GetMapping("/pagination")
     public CategoryResponse listCategories(
             @RequestParam(value = "pageNo", defaultValue = NUMBER_PAGE_DEFAULT, required = false) int numberPage,
             @RequestParam(value = "pageSize", defaultValue = SIZE_PAGE_DEFAULT, required = false) int sizePage,

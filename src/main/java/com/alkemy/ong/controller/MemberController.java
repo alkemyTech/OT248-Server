@@ -28,7 +28,7 @@ public class MemberController {
     @Autowired
     private MessageSource messageSource;
 
-    @GetMapping
+    @GetMapping("/pagination")
     public MemberResponse listMembers(
             @RequestParam(value = "pageNo", defaultValue = NUMBER_PAGE_DEFAULT, required = false) int numberPage,
             @RequestParam(value = "pageSize", defaultValue = SIZE_PAGE_DEFAULT, required = false) int sizePage,
