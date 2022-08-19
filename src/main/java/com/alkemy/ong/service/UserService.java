@@ -11,7 +11,7 @@ public interface UserService {
 
     List<UserResponseDTO> getAll();
 
-    Users applyPatchToUser(long id, UserDto patch);
+    UserResponseDTO applyPatchToUser(long id, UserDto patch);
 
     UserResponseDTO getUserDataByToken(String token);
 

@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody UserDto patch) {
-            Users user = userService.applyPatchToUser(id,patch);
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDto patch) {
+            UserResponseDTO user = userService.applyPatchToUser(id,patch);
             if(user==null)return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             return ResponseEntity.status(HttpStatus.OK).body(user);
     }
