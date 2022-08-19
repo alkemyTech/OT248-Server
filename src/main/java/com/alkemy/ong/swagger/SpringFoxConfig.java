@@ -25,7 +25,7 @@ public class SpringFoxConfig {
                 .forCodeGeneration(true)
                 .globalOperationParameters(globalParametersList())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.alkemy.ong.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.alkemy.ong"))
                 .paths(PathSelectors.any())
                 .build();
     }
