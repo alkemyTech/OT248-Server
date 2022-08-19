@@ -13,9 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,6 +44,18 @@ public class CommentController {
     public ResponseEntity<CommentDto> addComment(
             @Valid @RequestBody CommentDto commentDto){
         return new ResponseEntity<>(commentService.save(commentDto), HttpStatus.CREATED);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CommentDto> updateComment(
+            @Valid
+            @RequestBody CommentDto commentDto,
+            @PathVariable("id") Long id,
+            @RequestHeader(name = "Authorization") String token
+    ){
+        return new ResponseEntity<>(commentService
+                .updateComment(commentDto, id, token), HttpStatus.OK);
     }
 
 
@@ -80,5 +95,6 @@ public class CommentController {
         }
         return ResponseEntity.ok(commentService.getAllResponseDto());
     }
+
 
 }

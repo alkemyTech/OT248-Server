@@ -7,6 +7,7 @@ import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import java.util.List;
 
 @Service
 public class SeederData {
+
+    @Autowired private PasswordEncoder passwordEncoder;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -43,47 +46,47 @@ public class SeederData {
         List<Role> roles = roleRepository.findAll();
         List<Users> usuarios = new ArrayList<>();
         usuarios.add(new Users("juan","perez",
-                "juan@mail.com","1234","",roles.get(0)));
+                "juan@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
         usuarios.add(new Users("pepe","jults",
-                "pepe@mail.com","1234","",roles.get(0)));
+                "pepe@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
         usuarios.add(new Users("pedro","lopez",
-                "pedro@mail.com","1234","",roles.get(0)));
+                "pedro@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
         usuarios.add(new Users("ernesto","ford",
-                "ernesto@mail.com","1234","",roles.get(0)));
+                "ernesto@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
         usuarios.add(new Users("john","sanchez",
-                "john@mail.com","1234","",roles.get(0)));
+                "john@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
         usuarios.add(new Users("samuel","perez",
-                "samuel@mail.com","1234","",roles.get(0)));
+                "samuel@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
         usuarios.add(new Users("ivan","andredde",
-                "ivan@mail.com","1234","",roles.get(0)));
+                "ivan@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
         usuarios.add(new Users("jose","martinez",
-                "jose@mail.com","1234","",roles.get(0)));
+                "jose@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
         usuarios.add(new Users("oscar","bravo",
-                "oscar@mail.com","1234","",roles.get(0)));
+                "oscar@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
         usuarios.add(new Users("estavan","volarde",
-                "estavan@mail.com","1234","",roles.get(0)));
+                "estavan@mail.com",passwordEncoder.encode("1234"),"",roles.get(0)));
 
 
         usuarios.add(new Users("peet","landino",
-                "peet@mail.com","1234","",roles.get(1)));
+                "peet@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
         usuarios.add(new Users("mario","acosta",
-                "mario@mail.com","1234","",roles.get(1)));
+                "mario@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
         usuarios.add(new Users("bruno","piñero",
-                "bruno@mail.com","1234","",roles.get(1)));
+                "bruno@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
         usuarios.add(new Users("rick","goya",
-                "rick@mail.com","1234","",roles.get(1)));
+                "rick@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
         usuarios.add(new Users("mary","rincon",
-                "mary@mail.com","1234","",roles.get(1)));
+                "mary@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
         usuarios.add(new Users("pepa","avila",
-                "pepa@mail.com","1234","",roles.get(1)));
+                "pepa@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
         usuarios.add(new Users("vilma","nuñes",
-                "vilma@mail.com","1234","",roles.get(1)));
+                "vilma@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
         usuarios.add(new Users("eddie","garcia",
-                "eddie@mail.com","1234","",roles.get(1)));
+                "eddie@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
         usuarios.add(new Users("zully","lubo",
-                "zully@mail.com","1234","",roles.get(1)));
+                "zully@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
         usuarios.add(new Users("briget","lisboa",
-                "briget@mail.com","1234","",roles.get(1)));
+                "briget@mail.com",passwordEncoder.encode("1234"),"",roles.get(1)));
 
         userRepository.saveAll(usuarios);
     }
