@@ -59,7 +59,7 @@ public class UserControllerTest extends UserContextTest {
     }
     @Test
     @WithUserDetails("user")
-    public void testFooDelete() throws Exception {
+    public void  should_return_FORBIDDEN_status_code_when_try_to_delete_the_user () throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                         .delete((USERS_PATH)+"/1")
                         .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
