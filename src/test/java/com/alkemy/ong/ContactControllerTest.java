@@ -1,87 +1,77 @@
-/*package com.alkemy.ong;
+package com.alkemy.ong;
 
-import com.alkemy.ong.controller.ContactController;
 import com.alkemy.ong.model.Contact;
-import com.alkemy.ong.repository.ContactRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import static org.hamcrest.CoreMatchers.is;
+import java.util.ArrayList;
+import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import org.junit.jupiter.api.*;
-import org.junit.runner.RunWith;
-import org.mockito.*;
-import static org.mockito.Mockito.when;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
+public class ContactControllerTest extends ContactContextTest {
 
-@RunWith(MockitoJUnitRunner.class)
-@AutoConfigureMockMvc
-public class ContactControllerTest {
-
+    private static final String CONTACT_PATH = "/contacts";
     
-    private MockMvc mockMvc;
-
-    @Mock
-    private ContactRepository contactRepository;
-
-    @InjectMocks
-    private ContactController contactController;
-    
-    ObjectMapper objectMapper = new ObjectMapper();
-    ObjectWriter objectWriter = objectMapper.writer();
-    
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.openMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(contactController).build();
-        
+    @Before
+    public void create() {
+        if (contactRepository.findAll().isEmpty()) {
+            createContact();
+        }
     }
-//    private String email = "contact@test.com";
-//    private String name = "Juan Torres";
-//    private Integer phone = 3254411;
-//    private String message = "this is a test message";
 
     @Test
     @WithUserDetails("admin")
-    public void createContactSuccess() throws Exception {
-        Contact contact = Contact.builder()
-                                 .email("contact@test.com")
-                                 .name("Juan Torres")
-                                 .phone(3254411)
-                                 .message("this is a test message")
-                                 .build();
-        
-        Mockito.when(contactRepository.save(contact)).thenReturn(contact);
-        
-        String content = objectWriter.writeValueAsString(contact);
-        
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/contacts")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(content);
-        
-        mockMvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andExpect(jsonPath(".$", notNullValue()))
-                .andExpect(jsonPath(".name", is("Juan Torres")))
-                .andExpect(jsonPath(".email", is("contact@test.com")))
-                .andExpect(jsonPath(".phone", is(3254411)));
-                
-                
-                
-               
+    public void method_create_should_return_created_with_admin_role() throws Exception {
+        mockMvc.perform(post(CONTACT_PATH)
+                .content(createRequest(
+                        "Juan Torres",
+                        3254411,
+                        "contact@test.com",
+                        "this is a test message"
+                ))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(jsonPath("$.name", equalTo("Juan Torres")))
+                .andExpect(jsonPath("$.phone", equalTo(3254411)))
+                .andExpect(jsonPath("$.email", equalTo("contact@test.com")))
+                .andExpect(jsonPath("$.message", equalTo("this is a test message")))
+                .andExpect(status().isCreated());
     }
-}*/
+
+    @Test
+    @WithUserDetails("user")
+    public void method_create_should_return_forbidden_with_user_role() throws Exception {
+        mockMvc.perform(post(CONTACT_PATH)
+                .content(createRequest(
+                        "Juan Torres",
+                        3254411,
+                        "contact@test.com",
+                        "this is a test message"
+                ))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isForbidden());
+    }
+    @Test
+    @WithUserDetails("user")
+    public void method_getAll_should_return_ok_with_user_role() throws Exception {
+        List<Contact> contacts = new ArrayList();
+       mockMvc.perform(get(CONTACT_PATH)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(jsonPath("$..name", notNullValue()))
+                .andExpect(jsonPath("$..email", notNullValue()))
+                .andExpect(jsonPath("$..phone", notNullValue()))
+                .andExpect(jsonPath("$..message", notNullValue()))
+                .andExpect(status().isOk());
+    }
+}
