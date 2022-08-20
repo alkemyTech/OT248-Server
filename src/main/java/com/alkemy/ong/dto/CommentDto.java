@@ -13,14 +13,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class CommentDto {
 
-    private Long id;
-
     @NotBlank(message = "body can't be empty")
     @NotNull(message = "body can't be null")
     private String body;
-
-    @Min(1)
-    private Long userId;
 
     @Min(1)
     private Long newsId;

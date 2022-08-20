@@ -2,6 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.CommentDto;
 import com.alkemy.ong.dto.NewsDto;
+import com.alkemy.ong.dto.response.CommentResponseDTO;
 import com.alkemy.ong.dto.response.NewsPageResponse;
 import com.alkemy.ong.exception.ApiError;
 import com.alkemy.ong.model.Contact;
@@ -80,7 +81,7 @@ public class NewsController implements NewsDocumentation {
 
     @GetMapping("/{newsId}/comments")
     public ResponseEntity<?> findCommentByNewsId(@PathVariable("newsId") Long newsId){
-     List<CommentDto> commentsDto; 
+     List<CommentResponseDTO> commentsDto;
         try {
             commentsDto = commentServiceImpl.findCommentByNewsId(newsId);
         } catch (Exception e) {

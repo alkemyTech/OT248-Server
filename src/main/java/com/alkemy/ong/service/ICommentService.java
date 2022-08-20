@@ -3,21 +3,23 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.dto.CommentDto;
 import com.alkemy.ong.dto.response.CommentResponseDTO;
 import javassist.NotFoundException;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ICommentService {
 
-    CommentDto save(CommentDto dto);
+    CommentResponseDTO save(CommentDto dto, HttpServletRequest request);
 
     void deleteById(Long id) throws NotFoundException;
 
 
-    CommentDto updateComment(CommentDto commentDto, Long id, String token);
+    CommentResponseDTO updateComment(CommentDto commentDto, Long id, String token);
 
 
-    List<CommentDto> findCommentByNewsId(Long newsId) throws Exception;
+    List<CommentResponseDTO> findCommentByNewsId(Long newsId) throws Exception;
 
-    CommentDto findById(Long id);
+    CommentResponseDTO findById(Long id);
 
     List<CommentResponseDTO> getAllResponseDto();
 

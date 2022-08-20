@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.auth.utils.JwUtils;
 import com.alkemy.ong.dto.CommentDto;
 
 import com.alkemy.ong.dto.response.UserResponseDTO;
@@ -11,9 +12,7 @@ import com.alkemy.ong.repository.CommentRepository;
 import com.alkemy.ong.repository.UserRepository;
 
 import com.alkemy.ong.dto.response.CommentResponseDTO;
-import com.alkemy.ong.model.Comment;
 import com.alkemy.ong.model.News;
-import com.alkemy.ong.repository.CommentRepository;
 import com.alkemy.ong.repository.NewsRepository;
 
 import com.alkemy.ong.service.ICommentService;
@@ -26,6 +25,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 import java.util.List;
 import java.util.Optional;
@@ -50,14 +50,22 @@ public class CommentServiceImpl implements ICommentService {
     @Autowired
     private MessageSource messageSource;
 
+    @Autowired
+    private JwUtils jwUtil;
+
 
     @Override
     @Transactional
-    public CommentDto save(CommentDto dto) {
+    public CommentResponseDTO save(CommentDto dto, HttpServletRequest request) {
         try {
-            Comment comment = commentMapper.dtoToComment(dto);
+            final String authorizationHeader = request.getHeader("Authorization");
+
+            String email = jwUtil.extractUsername(authorizationHeader.substring(7));
+            Users loggedUser = userRepository.findByEmail(email);
+
+            Comment comment = commentMapper.dtoToComment(dto, loggedUser.getId());
             Comment commentSaved = commentRepository.save(comment);
-            return commentMapper.commentToDto(commentSaved);
+            return commentMapper.commentToResponseDto(commentSaved);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -78,7 +86,7 @@ public class CommentServiceImpl implements ICommentService {
 
     @Override
 
-    public CommentDto updateComment(CommentDto commentDto, Long id, String token) {
+    public CommentResponseDTO updateComment(CommentDto commentDto, Long id, String token) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Comment","id",id));
 
@@ -91,11 +99,11 @@ public class CommentServiceImpl implements ICommentService {
             throw new ForbiddenUpdate("comment","id",id);
         }
         comment.setBody(commentDto.getBody());
-        return commentMapper.commentToDto(commentRepository.save(comment));
+        return commentMapper.commentToResponseDto(commentRepository.save(comment));
     }
 
-    public List<CommentDto> findCommentByNewsId(Long newsId) throws Exception {
-        List<CommentDto> commentsDto = new ArrayList<>();
+    public List<CommentResponseDTO> findCommentByNewsId(Long newsId) throws Exception {
+        List<CommentResponseDTO> commentsDto = new ArrayList<>();
         Optional<News> response = newsRepository.findById(newsId);
         if (!response.isPresent()) {
             throw new EntityNotFoundException(messageSource.getMessage("news.notFound", null, Locale.US));
@@ -105,7 +113,7 @@ public class CommentServiceImpl implements ICommentService {
                 throw new Exception(messageSource.getMessage("news.comment.empty", null, Locale.US));
             } else {
                 for (Comment aux : comments) {
-                    CommentDto convertComment = commentMapper.commentToDto(aux);
+                    CommentResponseDTO convertComment = commentMapper.entityToResponseDTO(aux);
                     commentsDto.add(convertComment);
                 }
 
@@ -115,11 +123,11 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public CommentDto findById(Long id) {
+    public CommentResponseDTO findById(Long id) {
         Optional<Comment> res = commentRepository.findById(id);
         if (res.isPresent()) {
             Comment comment = res.get();
-            return commentMapper.commentToDto(comment);
+            return commentMapper.entityToResponseDTO(comment);
         } else {
             throw new EntityNotFoundException(messageSource.getMessage("error.comment.notFound", null, Locale.US));
         }

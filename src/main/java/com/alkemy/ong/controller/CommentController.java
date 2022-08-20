@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Locale;
 import java.util.Objects;
@@ -41,14 +42,14 @@ public class CommentController {
 
 
     @PostMapping
-    public ResponseEntity<CommentDto> addComment(
-            @Valid @RequestBody CommentDto commentDto){
-        return new ResponseEntity<>(commentService.save(commentDto), HttpStatus.CREATED);
+    public ResponseEntity<CommentResponseDTO> addComment(
+            @Valid @RequestBody CommentDto commentDto, HttpServletRequest request){
+        return new ResponseEntity<>(commentService.save(commentDto, request), HttpStatus.CREATED);
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommentDto> updateComment(
+    public ResponseEntity<CommentResponseDTO> updateComment(
             @Valid
             @RequestBody CommentDto commentDto,
             @PathVariable("id") Long id,
