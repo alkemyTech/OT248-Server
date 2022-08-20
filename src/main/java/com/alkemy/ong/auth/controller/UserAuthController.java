@@ -44,7 +44,6 @@ public class UserAuthController {
     @PostMapping("/register")
     public ResponseEntity<Jwt> register(@Valid @RequestBody UserDTO user) throws Exception {
 
-
         Jwt jwt = userDetailsCustomService.save(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(jwt);

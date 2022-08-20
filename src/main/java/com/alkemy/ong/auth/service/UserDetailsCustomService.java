@@ -5,6 +5,7 @@ import com.alkemy.ong.auth.dto.response.Jwt;
 import com.alkemy.ong.auth.dto.request.UserDTO;
 import com.alkemy.ong.auth.service.mapper.UserAuthMapper;
 import com.alkemy.ong.auth.utils.JwUtils;
+import com.alkemy.ong.exception.EmailAlreadyExists;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
@@ -67,9 +68,9 @@ public class UserDetailsCustomService implements UserDetailsService {
     }
 
     @Transactional
-    public Jwt save (UserDTO userDTO) throws IOException {
+    public Jwt save (UserDTO userDTO) throws IOException, EmailAlreadyExists {
         String encryptPass = passwordEncoder.encode(userDTO.getPassword());
-        if (userRepository.findByEmail(userDTO.getEmail()) != null) throw new AlreadyExistsException("Email is already in use");
+        if (userRepository.findByEmail(userDTO.getEmail()) != null) throw new EmailAlreadyExists("Email is already in use");
         Users user = userMapper.userDTOtoEntity(userDTO);
         user.setPassword(encryptPass);
         user.setRole(roleRepository.findByName("ROLE_USER"));
