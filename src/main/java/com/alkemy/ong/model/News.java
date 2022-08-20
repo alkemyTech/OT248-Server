@@ -54,4 +54,12 @@ public class News {
     @Column
     private boolean deleted = Boolean.FALSE;
 
+    public News(String name, String content, String image, Category category, Date date) {
+        this.name = name;
+        this.content = content;
+        this.image = image;
+        this.categoryId = category;
+        this.createDate = date;
+
+    }
 }

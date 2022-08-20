@@ -73,7 +73,7 @@ public class NewsServiceImpl extends PaginationUtil<News, Long, NewsRepository> 
         String previousUrl = urlGetPrevious(PATH_NEWS, numberOfPage);
         String nextUrl = urlGetNext(page, PATH_NEWS, numberOfPage);
 
-        if (page.getTotalPages() < numberOfPage) throw new NotFoundException(messageSource.getMessage("page.not.without", null, Locale.US));
+        if (page.getTotalPages() < numberOfPage) throw new NotFoundException(messageSource.getMessage("page.without.elements", null, Locale.US));
         return newsMapper.entityPageToPageResponse(page.getContent(), previousUrl, nextUrl);
     }
 

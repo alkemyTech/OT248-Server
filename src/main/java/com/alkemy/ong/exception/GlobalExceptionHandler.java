@@ -10,6 +10,7 @@ import org.hibernate.TypeMismatchException;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,7 +51,8 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(NameAlreadyExists.class)
+    @ExceptionHandler({NameAlreadyExists.class,
+            BadCredentialsException.class})
     @ResponseBody
     public MessageResponse handleAlreadyExists (Exception e, HttpServletRequest request) {
         return new MessageResponse(LocalDateTime.now(), e, request);

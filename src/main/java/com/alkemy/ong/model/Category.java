@@ -58,5 +58,10 @@ public class Category {
     @Column
     private boolean deleted = Boolean.FALSE;
 
-
+    public Category(String name, String description, String image, Date createDate) {
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.createDate = createDate;
+    }
 }

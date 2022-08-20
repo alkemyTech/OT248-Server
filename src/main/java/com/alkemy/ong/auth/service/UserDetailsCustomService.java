@@ -77,6 +77,7 @@ public class UserDetailsCustomService implements UserDetailsService {
     }
 
     public Jwt authentication (AuthenticationRequest authenticationRequest){
+        if (!userRepository.existsByEmail(authenticationRequest.getEmail())) throw new BadCredentialsException("Email doesn't exist");
         UserDetails userDetails;
         try {
             Authentication auth = authenticationManager.authenticate(
