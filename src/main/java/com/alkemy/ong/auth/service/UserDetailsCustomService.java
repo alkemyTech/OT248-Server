@@ -8,6 +8,7 @@ import com.alkemy.ong.auth.utils.JwUtils;
 import com.alkemy.ong.model.Users;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
+import com.alkemy.ong.service.MailService;
 import com.amazonaws.services.kms.model.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -46,6 +48,9 @@ public class UserDetailsCustomService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
+    private MailService mailService;
+
+    @Autowired
     private JwUtils jwUtils;
 
     @Override
@@ -62,13 +67,14 @@ public class UserDetailsCustomService implements UserDetailsService {
     }
 
     @Transactional
-    public Jwt save (UserDTO userDTO){
+    public Jwt save (UserDTO userDTO) throws IOException {
         String encryptPass = passwordEncoder.encode(userDTO.getPassword());
         if (userRepository.findByEmail(userDTO.getEmail()) != null) throw new AlreadyExistsException("Email is already in use");
         Users user = userMapper.userDTOtoEntity(userDTO);
         user.setPassword(encryptPass);
         user.setRole(roleRepository.findByName("ROLE_USER"));
         userRepository.save(user);
+        mailService.sendEmailRegisteredUser(userDTO.getEmail());
         String jwt = jwUtils.generateToken(loadUserByUsername(user.getEmail()));
 
         return Jwt.builder()
