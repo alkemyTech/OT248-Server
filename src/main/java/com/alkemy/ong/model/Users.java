@@ -16,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@SQLDelete(sql = "UPDATE Users SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE Users SET deleted = true WHERE users_id=?")
 @Where(clause = "deleted = false")
 @Builder
 public class Users {

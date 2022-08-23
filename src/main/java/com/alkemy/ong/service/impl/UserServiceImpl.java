@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users applyPatchToUser(long id, UserDto patch) {
+    public UserResponseDTO applyPatchToUser(long id, UserDto patch) {
         Optional<Users> user = userRepository.findById(id);
         if (user.isEmpty()) return null;
         user.ifPresent(userTemp->{
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
                     userTemp.setEmail(patch.getEmail());
                     userTemp.setPassword(patch.getPassword());
                 });
-        return userRepository.save(user.get());
+        return usersMapper.userEntityToDTO(userRepository.save(user.get()));
        }
 
     @Override
